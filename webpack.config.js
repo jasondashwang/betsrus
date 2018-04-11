@@ -10,8 +10,13 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css']
   },
   devtool: 'source-map',
+  mode: 'development',
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
       {
         test: /\.jsx?$/,
         include: [
@@ -21,14 +26,6 @@ module.exports = {
         options: {
           presets: ['react', 'es2015', 'stage-2']
         }
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
       }
     ]
   }
