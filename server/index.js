@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const volleyball = require('volleyball');
@@ -8,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 1337; // uses environment variable, but if it does not exist, default to 1337
 
 const server = app.listen(PORT, () => {
+  require('./db');
   console.log(`Server started on port ${PORT}`);
 })
 
@@ -33,8 +36,9 @@ app.use((req, res, next) => {
 });
 
 // send index.html
-app.use('*', (req, res, next) =>
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'))
+app.get('*', (req, res, next) => {
+  	res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+  }
 );
 
 // error handling endware
