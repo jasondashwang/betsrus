@@ -9,7 +9,6 @@ class App extends Component {
   render () {
     return (
       <div>
-      	<NavBar />
         <Jumbotron>
     		  <h1>Hello, world!</h1>
     		  <p>
