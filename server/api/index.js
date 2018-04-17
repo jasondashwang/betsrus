@@ -3,6 +3,7 @@ const router = require('express').Router();
 router.use('/user', require('./routes/user'));
 router.use('/prediction', require('./routes/prediction'));
 router.use('/game', require('./routes/game'));
+router.use('/league', require('./routes/league'));
 
 
 // 404 API middleware

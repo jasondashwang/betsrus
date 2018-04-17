@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const session = require('express-session');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 
@@ -24,8 +25,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api', require('./api'));
+app.use(session({
+  secret: 'AXMYSZAJERFML13JS',
+  saveUninitialized: true,
+  resave: true,
+}));
 
+app.use('/api', require('./api'));
 // 404 middleware
 app.use((req, res, next) => {
   if (path.extname(req.path).length > 0) {
@@ -37,6 +43,7 @@ app.use((req, res, next) => {
 
 // send index.html
 app.get('*', (req, res, next) => {
+    console.log('hello');
   	res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   }
 );

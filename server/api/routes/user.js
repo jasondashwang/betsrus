@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 const User = require('../../db/models/User');
 
 // Here is where rest of routes fit in
@@ -17,6 +18,7 @@ router.post('/register', (req, res) => {
       res.status(400).send(err);
     } else {
       res.status(200).end();
+      req.session.userID = user.id;
       // TODO: reroute to profile
     }
   });
