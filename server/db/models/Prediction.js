@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 // Definition of prediction Schema
 var PredictionSchema = new Schema({
   gameID : Number,
-  LeagueID: Schema.Types.ObjectId,
+  leagueID: Schema.Types.ObjectId,
   scores: {home: Number, away: Number},
   userID: Schema.Types.ObjectId
 });

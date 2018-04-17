@@ -6,7 +6,6 @@ var options = {
 
 mongoose.Promise = Promise;
 mongoose.connect(process.env.DB_URL, options).then(() => {
-	console.log('hello');
 }).catch((err) => {
 	console.log(err);
 });
