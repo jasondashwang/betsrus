@@ -6,7 +6,7 @@ var UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  leagues: [{LeagueId: Schema.Types.ObjectId}]
+  leagues: [Schema.Types.ObjectId]
 });
 
 var User = mongoose.model('User', UserSchema);
