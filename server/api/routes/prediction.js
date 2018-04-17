@@ -28,11 +28,11 @@ router.post('/submit', (req, res) => {
 });
 
 router.get('/retrieve', (req, res) => {
-  const username = req.body.userID;
+  const userID = req.body.userID;
   const gameID = req.body.gameID;
 
   Prediction.findOne({
-    username: username,
+    userID: userID,
 		gameID: gameID
   }).then((prediction) => {
     // upon request for a prediction of a certain game, send that info back.
