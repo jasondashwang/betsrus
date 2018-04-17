@@ -49,7 +49,7 @@ router.post('/joinLeague', (req, res) => {
       League.findOneAndUpdate(
         {_id: league.id},
         {$push: {players: {playerID: req.session.userID, score: 0}}},
-        {new: true},
+        {new: false},
         (err, doc) => {
           if (!err) {
             // Then add league to user's list of leagues.
