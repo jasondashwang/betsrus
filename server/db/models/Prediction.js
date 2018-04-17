@@ -3,12 +3,11 @@ var Schema = mongoose.Schema;
 
 // Definition of prediction Schema
 var PredictionSchema = new Schema({
-  gameID : Schema.Types.ObjectID,
-  LeagueID: Schema.Types.ObjectID,
+  gameID : Number,
+  LeagueID: Schema.Types.ObjectId,
   scores: {home: Number, away: Number},
-  userID: Schema.Types.ObjectID
+  userID: Schema.Types.ObjectId
 });
 
 var Prediction = mongoose.model('Prediction', PredictionSchema);
 module.exports = Prediction;
-
