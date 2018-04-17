@@ -1,4 +1,6 @@
+require('dotenv').config();
 var mongoose = require('mongoose');
+
 var options = {
     user: process.env.DB_USER,
     pass: process.env.DB_PASSWORD
@@ -6,7 +8,7 @@ var options = {
 
 mongoose.Promise = Promise;
 mongoose.connect(process.env.DB_URL, options).then(() => {
-	console.log('hello');
+	console.log('Connected to database!');
 }).catch((err) => {
 	console.log(err);
 });

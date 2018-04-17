@@ -6,7 +6,7 @@ var GameSchema = new Schema({
   start_Date: { type: Date, required: true },
   team1: { name: {type: String, required: true}, score: {type: Number, required: true}},
   team2: { name: {type: String, required: true}, score: {type: Number, required: true}},
-	gameID: Number
+  gameID: { type: Number, required: true },
 });
 
 var Game = mongoose.model('Game', GameSchema);
