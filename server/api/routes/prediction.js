@@ -27,6 +27,7 @@ router.post('/submit', (req, res) => {
   });
 });
 
+//the retrieve route is referenced when the user needs to access information regarding a prediction.
 router.get('/retrieve', (req, res) => {
   const userID = req.body.userID;
   const gameID = req.body.gameID;
