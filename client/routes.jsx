@@ -8,12 +8,14 @@ export default class Routes extends Component {
   render () {
     return (
       <div>
-	      <NavBar />
 	      <Router>
-	        <Switch>
-	          <Route exact path="/" component={App} />
-	          <Route path="/login" component={Login} />
-	        </Switch>
+					<div>
+						<NavBar />
+						<Switch>
+							<Route exact path="/" component={App} />
+							<Route path="/login" component={Login} />
+						</Switch>
+					</div>
 	      </Router>
       </div>
     );

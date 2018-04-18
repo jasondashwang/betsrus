@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/lib/Navbar'
 import Nav from 'react-bootstrap/lib/Nav'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
@@ -12,15 +13,15 @@ class NavBar extends Component {
       <Navbar>
   		  <Navbar.Header>
   		    <Navbar.Brand>
-  		      <a href="#home">React-Bootstrap</a>
+  		      <Link to="/">Bets R Us</Link>
   		    </Navbar.Brand>
   		  </Navbar.Header>
   		  <Nav>
-  		    <NavItem eventKey={1} href="#">
-  		      Link
+  		    <NavItem eventKey={1} href="/">
+  		      My Leagues
   		    </NavItem>
-  		    <NavItem eventKey={2} href="#">
-  		      Link
+  		    <NavItem eventKey={2} href="/login">
+  		      My Account
   		    </NavItem>
   		    <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
   		      <MenuItem eventKey={3.1}>Action</MenuItem>
