@@ -9,6 +9,9 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 // This will be our main component container for the rest of our site
 class NavBar extends Component {
   render () {
+
+		const { account } = this.props;
+
     return (
       <Navbar>
   		  <Navbar.Header>
@@ -17,19 +20,17 @@ class NavBar extends Component {
   		    </Navbar.Brand>
   		  </Navbar.Header>
   		  <Nav>
-  		    <NavItem eventKey={1} href="/">
-  		      My Leagues
-  		    </NavItem>
-  		    <NavItem eventKey={2} href="/login">
-  		      My Account
-  		    </NavItem>
-  		    <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-  		      <MenuItem eventKey={3.1}>Action</MenuItem>
-  		      <MenuItem eventKey={3.2}>Another action</MenuItem>
-  		      <MenuItem eventKey={3.3}>Something else here</MenuItem>
-  		      <MenuItem divider />
-  		      <MenuItem eventKey={3.4}>Separated link</MenuItem>
-  		    </NavDropdown>
+					{
+						account.id ?
+						( <NavDropdown title="My Account" id="basic-nav-dropdown">
+								<MenuItem href="/profile">Profile</MenuItem>
+								<MenuItem>Log Out</MenuItem>
+							</NavDropdown>) :
+						(
+							<NavItem href="/login">
+								Login / Sign Up
+							</NavItem> )
+					}
   		  </Nav>
   		</Navbar>
     );
