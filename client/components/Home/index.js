@@ -8,7 +8,10 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
+import axios from 'axios';
+
 import './styles.css';
+import { withRouter } from 'react-router-dom'
 
 // This will be our main component container for the rest of our site
 class Home extends Component {
@@ -21,6 +24,7 @@ class Home extends Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.createLeague = this.createLeague.bind(this);
 	}
 
   handleChange(evt) {
@@ -31,6 +35,18 @@ class Home extends Component {
 		evt.preventDefault();
 
 		console.log('submitted');
+	}
+
+	createLeague () {
+		axios.post('/api/league/createLeague')
+		.then(res => {
+			const league = res.data;
+			console.log(league);
+			this.props.history.push(`/leagues/${league._id}`);
+		})
+		.catch(err => {
+			console.error(err);
+		})
 	}
 
   render () {
@@ -58,7 +74,7 @@ class Home extends Component {
 						<Button type="submit">Join</Button>
 					</form>
 					<p>
-						<Button bsStyle="primary">Create New League</Button>
+						<Button onClick={this.createLeague} bsStyle="primary">Create New League</Button>
 					</p>
     	  </Jumbotron>
 
@@ -84,4 +100,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
