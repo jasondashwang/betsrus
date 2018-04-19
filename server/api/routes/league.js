@@ -7,6 +7,7 @@ const User = require('../../db/models/User');
 
 router.post('/createLeague', (req, res) => {
   const leagueData = {
+    name: req.body.leagueName,
     players: [{playerID: req.session.userID, score: 0}],
   };
 
@@ -30,7 +31,7 @@ router.post('/createLeague', (req, res) => {
           }
         }
       );
-      res.json(league);
+      res.status(200).send();
       // TODO: reroute to league page.
     }
   });
