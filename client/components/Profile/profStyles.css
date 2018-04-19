@@ -1,0 +1,19 @@
+
+.col-xs-8 img {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.col-xs-3 img {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.col-xs-12 img {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.panel-default {
+	margin-top: 50px;
+}
