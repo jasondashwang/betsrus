@@ -3,6 +3,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import League from './components/League';
 
 export default class Routes extends Component {
 
@@ -24,6 +25,7 @@ export default class Routes extends Component {
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route path="/login" component={Login} />
+							<Route path="/league" component={League} />
 						</Switch>
 					</div>
 	      </Router>
