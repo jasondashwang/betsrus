@@ -42,7 +42,11 @@ class Home extends Component {
 		.then(res => {
 			const league = res.data;
 			console.log(league);
-			this.props.history.push(`/leagues/${league._id}`);
+			this.props.history.push(`/leagues/${league._id}`, {
+				state: {
+					meow: true
+				}
+			});
 		})
 		.catch(err => {
 			console.error(err);
