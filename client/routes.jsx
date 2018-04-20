@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import League from './components/League';
+import Profile from './components/Profile';
 
 export default class Routes extends Component {
 
@@ -26,6 +27,7 @@ export default class Routes extends Component {
 							<Route exact path="/" component={Home} />
 							<Route path="/login" component={Login} />
 							<Route path="/league" component={League} />
+							<Route Path="/profile" component={Profile} />
 						</Switch>
 					</div>
 	      </Router>
