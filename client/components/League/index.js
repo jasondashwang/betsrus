@@ -11,6 +11,13 @@ import './styles.css';
 // This will be our main component container for the rest of our site
 class League extends Component {
 
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			leagueId: ''
+		}
+	}
 
   render () {
     return (

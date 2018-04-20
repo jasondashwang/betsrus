@@ -5,6 +5,7 @@ import Login from './components/Login';
 import NavBar from './components/NavBar';
 import League from './components/League';
 import Profile from './components/Profile';
+import Page404 from './components/Page404';
 
 export default class Routes extends Component {
 
@@ -26,8 +27,9 @@ export default class Routes extends Component {
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route path="/login" component={Login} />
-							<Route path="/league" component={League} />
+							<Route path="/league/:id" component={League} />
 							<Route Path="/profile" component={Profile} />
+							<Route component={Page404} />
 						</Switch>
 					</div>
 	      </Router>
