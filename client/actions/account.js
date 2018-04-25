@@ -12,15 +12,14 @@ export const loginActionCreator = account => {
 
 export const loginThunk = (username, password) => {
   return (dispatch) => {
-    console.log(username, password);
 		axios.post('/api/user/authenticate', {
 			username,
 			password,
 		})
 		.then(res => {
       const user = res.data;
-      dispatch(loginActionCreator(user))
-			console.log(user);
+      dispatch(loginActionCreator(user));
+			dispatch(push('/'));
 		})
 		.catch(err => {
 			console.error(err);
@@ -33,8 +32,8 @@ export const signupThunk = user => {
   return dispatch => {
     axios.post('/api/user/register', user)
     .then(res => {
-      console.log(res.data);
-      dispatch(loginActionCreator(res.data));
+      dispatch(loginActionCreator(res.data))
+      dispatch(push('/'));
     })
     .catch(err => {
       console.error(err);
