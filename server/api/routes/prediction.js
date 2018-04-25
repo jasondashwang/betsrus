@@ -44,9 +44,10 @@ router.get('/retrieve', (req, res) => {
   });
 });
 
-router.get('/games', (req, res) => {
-	Prediction.distinct("gameID").then((gameIDs) => {
-		res.status(200).send(gameIDs);
+router.get('/mygames', (req, res) => {
+	const userID = req.body.userID;
+	Prediction.find({userID: userID}).then((predictions) => {
+		res.status(200).send(predictions);
 	}).catch((err) => {
 		res.status(500).send(err);
 	});
