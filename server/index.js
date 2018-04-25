@@ -13,6 +13,10 @@ const PORT = process.env.PORT || 1337; // uses environment variable, but if it d
 const server = app.listen(PORT, () => {
   require('./db');
   console.log(`Server started on port ${PORT}`);
+
+  const io = require('socket.io')(server);
+
+  require('./sockets')(io);
 })
 
 // logging middleware comes first
