@@ -8,7 +8,7 @@ const app = express();
 
 const PORT = process.env.PORT || 1337; // uses environment variable, but if it does not exist, default to 1337
 
-const serverconst = app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   require('./db');
   console.log(`Server started on port ${PORT}`);
 })
