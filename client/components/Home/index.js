@@ -24,7 +24,7 @@ class Home extends Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		this.createLeague = this.createLeague.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
   handleChange(evt) {
@@ -35,22 +35,6 @@ class Home extends Component {
 		evt.preventDefault();
 
 		console.log('submitted');
-	}
-
-	createLeague () {
-		axios.post('/api/league/createLeague')
-		.then(res => {
-			const league = res.data;
-			console.log(league);
-			this.props.history.push(`/league/${league._id}`, {
-				state: {
-					meow: true
-				}
-			});
-		})
-		.catch(err => {
-			console.error(err);
-		})
 	}
 
   render () {
@@ -78,7 +62,7 @@ class Home extends Component {
 						<Button type="submit">Join</Button>
 					</form>
 					<p>
-						<Button onClick={this.createLeague} bsStyle="primary">Create New League</Button>
+						<Button onClick={this.props.createLeague} bsStyle="primary">Create New League</Button>
 					</p>
     	  </Jumbotron>
 
@@ -104,4 +88,21 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+import { connect } from 'react-redux';
+import { createLeagueThunk } from '../../actions/league';
+
+const mapStateToProps = state => {
+	return {
+		accountId: state.account.id
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		createLeague () {
+			dispatch(createLeagueThunk())
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

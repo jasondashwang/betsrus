@@ -11,18 +11,10 @@ import './styles.css';
 // This will be our main component container for the rest of our site
 class League extends Component {
 
-	constructor (props) {
-		super(props);
-
-		this.state = {
-			leagueId: ''
-		}
-	}
-
   render () {
     return (
       <div>
-      	<h1>Example League</h1>
+      	<h1>Example League </h1>
       	<Grid>
       		<Row className="leagueGrid">
       			<Col md={8} mdOffset={2}>

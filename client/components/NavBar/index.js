@@ -10,7 +10,9 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 class NavBar extends Component {
   render () {
 
-		const { account } = this.props;
+		const account = {
+			id: 1
+		}
 
     return (
       <Navbar>
