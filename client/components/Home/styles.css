@@ -1,4 +1,5 @@
 .landing {
 	background-color: purple;
 	color: white;
+	overflow: auto;
 }
