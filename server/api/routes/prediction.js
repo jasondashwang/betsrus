@@ -44,4 +44,12 @@ router.get('/retrieve', (req, res) => {
   });
 });
 
+router.get('/games', (req, res) => {
+	Prediction.distinct("gameID").then((gameIDs) => {
+		res.status(200).send(gameIDs);
+	}).catch((err) => {
+		res.status(500).send(err);
+	});
+});
+
 module.exports = router;
