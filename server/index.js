@@ -1,16 +1,14 @@
 require('dotenv').config();
-
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
-
 const app = express();
 
 const PORT = process.env.PORT || 1337; // uses environment variable, but if it does not exist, default to 1337
 
-const server = app.listen(PORT, () => {
+const serverconst = app.listen(PORT, () => {
   require('./db');
   console.log(`Server started on port ${PORT}`);
 })
