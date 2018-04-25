@@ -17,7 +17,7 @@ router.post('/register', (req, res) => {
       console.error(err);
       res.status(400).send(err);
     } else {
-      res.status(200).end();
+      res.json(user);
       req.session.userID = user.id;
       // TODO: reroute to profile
     }
@@ -33,8 +33,7 @@ router.post('/authenticate', (req, res) => {
   }).then((user) => {
     // Check that the given password matches user's password
     if (bcrypt.compareSync(password, user.password)) {
-      res.status(200).send();
-      // TODO: reroute to profile; set cookies
+      res.json(user);
     } else {
       res.status(401).send();
     }
