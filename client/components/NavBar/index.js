@@ -10,10 +10,6 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 class NavBar extends Component {
   render () {
 
-		const account = {
-			id: 1
-		}
-
     return (
       <Navbar>
   		  <Navbar.Header>
@@ -23,7 +19,7 @@ class NavBar extends Component {
   		  </Navbar.Header>
   		  <Nav>
 					{
-						account.id ?
+						this.props.accountId ?
 						( <NavDropdown title="My Account" id="basic-nav-dropdown">
 								<MenuItem href="/profile">Profile</MenuItem>
 								<MenuItem>Log Out</MenuItem>
@@ -37,6 +33,14 @@ class NavBar extends Component {
   		</Navbar>
     );
   }
+}
+
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+	return {
+		accountId: state.account.id
+	}
 }
 
 export default NavBar;

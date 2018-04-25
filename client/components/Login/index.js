@@ -7,8 +7,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 
-import axios from 'axios';
-
 // This will be our main component container for the rest of our site
 class Login extends Component {
 
@@ -26,6 +24,7 @@ class Login extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleSignUp = this.handleSignUp.bind(this);
 	}
 
 	handleChange (evt, type) {
@@ -38,15 +37,16 @@ class Login extends Component {
 	handleLogin (evt) {
 		evt.preventDefault();
 
-		axios.post('/api/user/authenticate', {
-			username: this.state.loginUsername,
-			password: this.state.loginPassword
-		})
-		.then(user => {
-			console.log(user);
-		})
-		.catch(err => {
-			console.error(err);
+		this.props.login(this.state.loginUsername, this.state.loginPassword);
+	}
+
+	handleSignUp (evt) {
+		evt.preventDefault();
+
+		this.props.signup({
+			username: this.state.signupUsername,
+			password: this.state.signupPassword,
+			email: this.state.signupEmail
 		})
 	}
 
@@ -72,7 +72,7 @@ class Login extends Component {
 		      	  </Tab>
 
 		        <Tab eventKey={2} title="Sign Up">
-		        	<form>
+		        	<form onSubmit={this.handleSignUp}>
 			      		<FormGroup>
 				      		<ControlLabel>Email</ControlLabel>
 				      		<FormControl type="text" onChange={(evt) => { this.handleChange(evt, 'signupEmail')} } />
@@ -99,4 +99,20 @@ class Login extends Component {
   }
 }
 
-export default Login;
+import { connect } from 'react-redux';
+import { loginThunk, signupThunk } from '../../actions/account';
+
+const mapDispatchToProps = dispatch => {
+	return {
+		login (username, password) {
+			dispatch(loginThunk(username, password))
+		},
+
+		signup (user) {
+			dispatch(signupThunk(user));
+		}
+	}
+}
+
+
+export default connect(null, mapDispatchToProps)(Login);
