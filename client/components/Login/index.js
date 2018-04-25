@@ -99,4 +99,16 @@ class Login extends Component {
   }
 }
 
+import { connect } from 'react-redux';
+import { loginThunk, signupThunk } from '../../actions/account';
+
+const mapDispatchToProps = dispatch => {
+	return {
+		login (username, password) {
+			dispatch(loginThunk(username, password))
+		}
+	}
+}
+
+
 export default Login;
