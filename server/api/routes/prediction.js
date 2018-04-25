@@ -44,10 +44,26 @@ router.get('/retrieve', (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 router.get('/mygames', (req, res) => {
 	const userID = req.body.userID;
 	Prediction.find({userID: userID}).then((predictions) => {
 		res.status(200).send(predictions);
+=======
+<<<<<<< HEAD
+//calling /prediction/mygames route will return the predictions that the requesting user has made.
+router.get('/mygames', (req, res) => {
+	const userID = req.body.userID;
+	Prediction.find({userID: userID}).then((predictions) => {
+		console.log(predictions);
+		res.status(200).send(predictions);
+
+=======
+router.get('/games', (req, res) => {
+	Prediction.distinct("gameID").then((gameIDs) => {
+		res.status(200).send(gameIDs);
+>>>>>>> master
+>>>>>>> cyrus
 	}).catch((err) => {
 		res.status(500).send(err);
 	});
