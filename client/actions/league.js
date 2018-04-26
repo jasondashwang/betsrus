@@ -10,6 +10,12 @@ export const receiveLeagueActionCreator = league => {
   }
 };
 
+export const getLeagueThunk = (id) => {
+  return (dispatch) => {
+
+  }
+}
+
 export const createLeagueThunk = () => {
   return (dispatch) => {
     axios.post('/api/league/createLeague')
