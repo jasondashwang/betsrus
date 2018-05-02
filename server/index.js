@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 1337; // uses environment variable, but if it d
 const server = app.listen(PORT, () => {
   require('./db');
   console.log(`Server started on port ${PORT}`);
-})
+});
 
 const io = require('socket.io')(server);
 
@@ -45,8 +46,6 @@ app.use((req, res, next) => {
 
 // send index.html
 app.get('*', (req, res, next) => {
-    console.log(req.session);
-    console.log(req.session.userID);
   	res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   }
 );
