@@ -43,6 +43,20 @@ router.get('/EPLFixtures201718', (req, res) => {
     });
 });
 
+router.get('/remainingFixtures', (req, res) => {
+  Game.find({
+    start_Date: { $gte: new Date() }
+  }, (err, games) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(games);
+      res.send();
+    }
+  });
+});
+
+
 // Cron Job run every day at midnight to update scores across leagues
 router.get('/cronTest', (req, res) => {
   // First, using our external API, update our GAME table with all results
