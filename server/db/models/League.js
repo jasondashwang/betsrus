@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 // Definition of league Schema
 var LeagueSchema = new Schema({
-  players: [{ playerID: {type: Schema.Types.ObjectId}, score: {type: Number}}],
+  players: [{ playerID: {type: Schema.Types.ObjectId, ref: 'User'}, score: {type: Number}}],
   name: {type: String, required: true, default: 'New League'}
 });
 
