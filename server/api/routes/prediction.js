@@ -2,7 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 
 const Prediction = require('../../db/models/Prediction');
-ObjectId = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectID;
 
 // Here is where rest of routes fit in
 

@@ -19,7 +19,7 @@ router.post('/register', (req, res) => {
     } else {
       res.json(user);
       req.session.userID = user.id;
-      // TODO: reroute to profile
+      res.status(200).send();
     }
   });
 });
@@ -34,6 +34,8 @@ router.post('/authenticate', (req, res) => {
     // Check that the given password matches user's password
     if (bcrypt.compareSync(password, user.password)) {
       res.json(user);
+      req.session.userID = user.id;
+      res.status(200).send();
     } else {
       res.status(401).send();
     }

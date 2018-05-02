@@ -45,7 +45,8 @@ app.use((req, res, next) => {
 
 // send index.html
 app.get('*', (req, res, next) => {
-    console.log('hello');
+    console.log(req.session);
+    console.log(req.session.userID);
   	res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   }
 );
