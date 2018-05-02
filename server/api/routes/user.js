@@ -17,11 +17,20 @@ router.post('/register', (req, res) => {
       console.error(err);
       res.status(400).send(err);
     } else {
+
+			user = removeJsonAttrs(user,["password"]);
+
       res.json(user);
       res.status(200).send();
     }
   });
 });
+
+// from stackexchange question
+function removeJsonAttrs(json,attrs){
+    return JSON.parse(JSON.stringify(json,function(k,v){
+        return attrs.indexOf(k)!==-1 ? undefined: v;
+}));}
 
 router.post('/authenticate', (req, res) => {
   const username = req.body.username;
@@ -32,6 +41,7 @@ router.post('/authenticate', (req, res) => {
   }).then((user) => {
     // Check that the given password matches user's password
     if (bcrypt.compareSync(password, user.password)) {
+			user = removeJsonAttrs(user,["password"]);
       res.json(user);
       res.status(200).send();
     } else {
