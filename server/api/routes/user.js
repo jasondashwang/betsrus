@@ -65,6 +65,24 @@ router.get('/data', (req, res) => {
       }
     });
   }
-})
+});
+
+router.post('/changePassword', (req, res) => {
+  if (req.body.password === undefined) {
+    res.status(404).send();
+  } else {
+    User.findOneAndUpdate({ _id: req.body.userID },
+      {$set: {password: bcrypt.hashSync(req.body.password, 10)}},
+      {new: true})
+    .exec((err, league) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send();
+      } else {
+        res.status(200).send();
+      }
+    });
+  }
+});
 
 module.exports = router;
