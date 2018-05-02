@@ -17,12 +17,19 @@ router.post('/register', (req, res) => {
       console.error(err);
       res.status(400).send(err);
     } else {
+
+			user = removeJsonAttrs(user,["password"]);
+
       res.json(user);
-      req.session.userID = user.id;
-      res.status(200).send();
     }
   });
 });
+
+// from stackexchange question
+function removeJsonAttrs(json,attrs){
+    return JSON.parse(JSON.stringify(json,function(k,v){
+        return attrs.indexOf(k)!==-1 ? undefined: v;
+}));}
 
 router.post('/authenticate', (req, res) => {
   const username = req.body.username;
@@ -30,12 +37,11 @@ router.post('/authenticate', (req, res) => {
 
   User.findOne({
     username: username
-  }).then((user) => {
+  }).populate('leagues').exec().then((user) => {
     // Check that the given password matches user's password
     if (bcrypt.compareSync(password, user.password)) {
+			user = removeJsonAttrs(user,["password"]);
       res.json(user);
-      req.session.userID = user.id;
-      res.status(200).send();
     } else {
       res.status(401).send();
     }
@@ -44,45 +50,41 @@ router.post('/authenticate', (req, res) => {
   });
 });
 
-router.get('/data', (req, res) => {
-  // ID is not set (i.e user isn't logged in), send back nothing.
-  if (req.session.userID === undefined || req.session.userID === null) {
-    res.status(200).send();
-  } else {
-    User.findOne({
-      _id: req.session.userID
-    }, (err, user) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send();
-      } else {
-        const userObj = {};
-        userObj.email = user.email;
-        userObj.leagues = user.leagues;
-        userObj.username = user.username;
-        res.json(userObj);
-        res.status(200).send();
-      }
-    });
-  }
-});
+// router.post('/changePassword', (req, res) => {
+//   if (req.body.password === undefined) {
+//     res.status(404).send();
+//   } else {
+//     User.findOneAndUpdate({ _id: req.body.userID },
+//       {$set: {password: bcrypt.hashSync(req.body.password, 10)}},
+//       {new: true})
+//     .exec((err, league) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).send();
+//       } else {
+//         res.status(200).send();
+//       }
+//     });
+//   }
+// });
 
-router.post('/changePassword', (req, res) => {
-  if (req.body.password === undefined) {
-    res.status(404).send();
-  } else {
-    User.findOneAndUpdate({ _id: req.body.userID },
-      {$set: {password: bcrypt.hashSync(req.body.password, 10)}},
-      {new: true})
-    .exec((err, league) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send();
-      } else {
-        res.status(200).send();
-      }
-    });
-  }
-});
+
+router.post('/updateInfo', (req, res) => {
+	if (req.body === undefined) {
+		res.status(404).send();
+	} else {
+		User.findOneAndUpdate({_id: req.body.userID},
+		{$set: {password: bcrypt.hashSync(req.body.password, 10), email: req.body.email,username: req.body.username }},
+		{new: true}).exec((err, data) => {
+			if (err) {
+				console.error(err);
+				res.status(500).send();
+			}
+			else {
+				res.status(200).send();
+			}
+		})
+	}
+})
 
 module.exports = router;

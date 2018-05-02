@@ -20,20 +20,26 @@ export const clearLeagueActionCreator = () => {
 
 export const getLeagueThunk = (id) => {
   return (dispatch) => {
-
-  }
-}
-
-export const joinLeagueThunk = (leagueID) => {
-  return (dispatch, getState) => {
-    axios.post('/api/league/joinLeague', {
-      leagueID,
-      userID: getState().account._id
-    })
+    axios.get(`/api/league/${id}`)
     .then(res => {
       const league = res.data;
 
       dispatch(receiveLeagueActionCreator(league));
+    })
+  }
+}
+
+export const joinLeagueThunk = (leagueID) => {
+  axios.defaults.withCredentials = true;
+  return (dispatch, getState) => {
+    axios.post('/api/league/joinLeague', {
+      leagueID,
+      userID: getState().account._id,
+      username: getState().account.username
+    })
+    .then(res => {
+      const league = res.data;
+
       dispatch(push(`/leagues/${league._id}`));
       dispatch(addLeagueActionCreator(league));
     })
@@ -44,11 +50,15 @@ export const joinLeagueThunk = (leagueID) => {
 }
 
 export const createLeagueThunk = () => {
-  return (dispatch) => {
-    axios.post('/api/league/createLeague')
+  axios.defaults.withCredentials = true;
+  return (dispatch, getState) => {
+    axios.post('/api/league/createLeague', {
+      userID: getState().account._id,
+      username: getState().account.username
+    })
 		.then(res => {
-			const league = res.data;
-      dispatch(receiveLeagueActionCreator(league));
+      const league = res.data;
+
       dispatch(push(`/leagues/${league._id}`));
       dispatch(addLeagueActionCreator(league));
 		})

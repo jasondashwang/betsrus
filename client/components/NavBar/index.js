@@ -10,6 +10,17 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 // This will be our main component container for the rest of our site
 class NavBar extends Component {
+
+	constructor (props) {
+		super(props);
+
+		this.logout = this.logout.bind(this);
+	}
+
+	logout () {
+		this.props.logout();
+	}
+
   render () {
 
     return (
@@ -24,7 +35,7 @@ class NavBar extends Component {
 						this.props.accountId ?
 						( <NavDropdown title="My Account" id="basic-nav-dropdown">
 								<LinkContainer to="/profile"><MenuItem>Profile</MenuItem></LinkContainer>
-								<MenuItem>Log Out</MenuItem>
+								<MenuItem onClick={this.logout} >Log Out</MenuItem>
 							</NavDropdown>) :
 						(
 							<LinkContainer to="/login"><NavItem>Login / Sign Up</NavItem></LinkContainer>
@@ -37,11 +48,20 @@ class NavBar extends Component {
 }
 
 import { connect } from 'react-redux';
+import { logoutActionCreator } from '../../actions/account';
 
 const mapStateToProps = (state) => {
 	return {
-		accountId: state.account.id
+		accountId: state.account._id
 	}
 }
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		logout () {
+			dispatch(logoutActionCreator());
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

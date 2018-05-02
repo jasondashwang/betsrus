@@ -3,3 +3,9 @@
 	color: white;
 	overflow: auto;
 }
+
+.leagueCard {
+	height: 100px;
+	width: 100px;
+	background-color: fuchsia;
+}

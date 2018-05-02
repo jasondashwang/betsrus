@@ -12,9 +12,7 @@ import './styles.css';
 class League extends Component {
 
 	componentDidMount () {
-		if (!this.props.id) {
-			this.props.getLeague();
-		}
+		this.props.getLeague();
 	}
 
 	componentWillUnmount () {
@@ -25,6 +23,7 @@ class League extends Component {
     return (
       <div>
       	<h1>{ this.props.name }</h1>
+				<h1>League Code (Share with Friends): { this.props.id }</h1>
       	<Grid>
       		<Row className="leagueGrid">
       			<Col md={8} mdOffset={2}>
@@ -79,10 +78,11 @@ class League extends Component {
       					<Label bsStyle="primary">Standings</Label>{' '}
       				</h1>
       				<ListGroup>
-  						<ListGroupItem>1st Mom</ListGroupItem>
-  						<ListGroupItem>2nd (You)</ListGroupItem>
-  						<ListGroupItem>3rd Lil Bro</ListGroupItem>
-  						<ListGroupItem>4th Dad</ListGroupItem>
+							{
+								this.props.players.map(player => {
+									return (<ListGroupItem key={player._id}>{ player.username } - { player.score }</ListGroupItem>)
+								})
+							}
 					</ListGroup>
       			</Col>
       		</Row>
@@ -97,7 +97,7 @@ import { getLeagueThunk, clearLeagueActionCreator } from '../../actions/league';
 
 const mapStateToProps = (state) => {
 	return {
-		id: state.league.id,
+		id: state.league._id,
 		players: state.league.players,
 		name: state.league.name
 	}
