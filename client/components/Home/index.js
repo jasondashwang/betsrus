@@ -45,25 +45,34 @@ class Home extends Component {
 					<p>
 						"Do you have what it takes to rise to the top?" - Chirayu Poudel (Crystal Palace)
 					</p>
-					<form onSubmit={this.handleSubmit}>
-						<FormGroup
-							controlId="formBasicText"
-						>
-							<ControlLabel>Join Existing League</ControlLabel>
-							<FormControl
-								type="text"
-								value={this.state.leagueId}
-								placeholder="Enter League ID"
-								onChange={this.handleChange}
-							/>
-							<FormControl.Feedback />
-						</FormGroup>
 
-						<Button type="submit">Join</Button>
-					</form>
-					<p>
-						<Button onClick={this.props.createLeague} bsStyle="primary">Create New League</Button>
-					</p>
+					{ this.props.accountId ?
+						<div>
+							<form onSubmit={this.handleSubmit}>
+							<FormGroup
+								controlId="formBasicText"
+							>
+								<ControlLabel>Join Existing League</ControlLabel>
+								<FormControl
+									type="text"
+									value={this.state.leagueId}
+									placeholder="Enter League ID"
+									onChange={this.handleChange}
+								/>
+								<FormControl.Feedback />
+							</FormGroup>
+
+							<Button type="submit">Join</Button>
+							</form>
+							<p>
+								<Button onClick={this.props.createLeague} bsStyle="primary">Create New League</Button>
+							</p>
+						</div> :
+						<div>
+							<h4>To create or join a league, please login or sign up with an account</h4>
+						</div>
+
+					}
     	  </Jumbotron>
 
 				<Jumbotron>

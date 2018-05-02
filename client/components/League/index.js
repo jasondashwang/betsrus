@@ -11,10 +11,16 @@ import './styles.css';
 // This will be our main component container for the rest of our site
 class League extends Component {
 
+	componentDidMount () {
+		if (!this.props.id) {
+			this.props.getLeague();
+		}
+	}
+
   render () {
     return (
       <div>
-      	<h1>Example League </h1>
+      	<h1>{ this.props.name }</h1>
       	<Grid>
       		<Row className="leagueGrid">
       			<Col md={8} mdOffset={2}>
@@ -82,4 +88,23 @@ class League extends Component {
   }
 }
 
-export default League;
+import { connect } from 'react-redux';
+import { getLeagueThunk } from '../../actions/league';
+
+const mapStateToProps = (state) => {
+	return {
+		id: state.league.id,
+		players: state.league.players,
+		name: state.league.name
+	}
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		getLeague () {
+			return dispatch(getLeagueThunk(ownProps.match.params.leagueId));
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(League);
