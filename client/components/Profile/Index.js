@@ -70,17 +70,7 @@ class Profile extends Component {
 	  		</Col>
 	  	</Row>
 	  </Grid>
-      
-      <Panel>
-      	<Panel.Heading>
-      		<Panel.Title componentClass="h2"> Leagues at a Glance </Panel.Title>
-      	</Panel.Heading>
-      	<Panel.Body className="leagueCol">
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-	    </Panel.Body>
-	  </Panel>
+     
 	  <Panel>
       	<Panel.Heading>
       		<Panel.Title componentClass="h2"> Achievements </Panel.Title>
