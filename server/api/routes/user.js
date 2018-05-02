@@ -18,7 +18,6 @@ router.post('/register', (req, res) => {
       res.status(400).send(err);
     } else {
       res.json(user);
-      res.status(200).send();
     }
   });
 });
@@ -29,11 +28,10 @@ router.post('/authenticate', (req, res) => {
 
   User.findOne({
     username: username
-  }).then((user) => {
+  }).populate('leagues').exec().then((user) => {
     // Check that the given password matches user's password
     if (bcrypt.compareSync(password, user.password)) {
       res.json(user);
-      res.status(200).send();
     } else {
       res.status(401).send();
     }

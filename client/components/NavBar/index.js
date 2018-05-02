@@ -40,7 +40,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
 	return {
-		accountId: state.account.id
+		accountId: state.account._id
 	}
 }
 
