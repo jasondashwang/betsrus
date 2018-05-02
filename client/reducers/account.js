@@ -5,7 +5,8 @@ import {
 const initialAccountState = {
   id: '',
   username: '',
-  email: ''
+  email: '',
+  leagues: []
 };
 
 export default function (state = initialAccountState, action) {
@@ -17,6 +18,7 @@ export default function (state = initialAccountState, action) {
       newState.id = action.account._id;
       newState.username = action.account.username;
       newState.email = action.account.email;
+      newState.leagues = action.account.leagues;
       break;
     }
 

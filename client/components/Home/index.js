@@ -77,20 +77,19 @@ class Home extends Component {
 
 				<Jumbotron>
 					<h2>My Leagues</h2>
+					{ /* Change this to be a Grid Format */ }
 
-					<Grid>
-						<Row>
-							<Col md={4}>
-								Moo
-							</Col>
-							<Col md={4}>
-								Moo
-							</Col>
-							<Col md={4}>
-								Moo
-							</Col>
-						</Row>
-					</Grid>
+					{
+						// if there are leagues, return the list of them otherwise display a message to join one
+						this.props.leagues.length ?
+						this.props.leagues.map(league => {
+							return (
+								<div>{ league }</div>
+							)
+						})
+						: <h4>You are currently not part of any leagues!</h4>
+
+					}
 				</Jumbotron>
       </div>
     );
@@ -102,7 +101,8 @@ import { createLeagueThunk } from '../../actions/league';
 
 const mapStateToProps = state => {
 	return {
-		accountId: state.account.id
+		accountId: state.account.id,
+		leagues: state.account.leagues
 	}
 }
 
