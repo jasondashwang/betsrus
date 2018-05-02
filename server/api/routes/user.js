@@ -44,4 +44,27 @@ router.post('/authenticate', (req, res) => {
   });
 });
 
+router.get('/data', (req, res) => {
+  // ID is not set (i.e user isn't logged in), send back nothing.
+  if (req.session.userID === undefined || req.session.userID === null) {
+    res.status(200).send();
+  } else {
+    User.findOne({
+      _id: req.session.userID
+    }, (err, user) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send();
+      } else {
+        const userObj = {};
+        userObj.email = user.email;
+        userObj.leagues = user.leagues;
+        userObj.username = user.username;
+        res.json(userObj);
+        res.status(200).send();
+      }
+    });
+  }
+})
+
 module.exports = router;
