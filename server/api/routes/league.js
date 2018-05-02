@@ -112,7 +112,21 @@ router.get('/details', (req, res) => {
       res.status(200).send();
     }
   });
-})
+});
 
+router.post('/changeName', (req, res) => {
+  League.findOneAndUpdate({ _id: req.body.leagueID },
+    {$set: {name: req.body.leagueName}},
+    {new: true})
+  .exec((err, league) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send();
+    } else {
+      res.json(req.body.leagueName);
+      res.status(200).send();
+    }
+  });
+});
 
 module.exports = router;
