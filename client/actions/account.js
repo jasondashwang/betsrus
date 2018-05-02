@@ -18,6 +18,22 @@ export const addLeagueActionCreator = league => {
   }
 }
 
+export const checkSessionThunk = () => {
+  return dispatch => {
+    axios.get('/api/user/data')
+    .then(res => {
+      const user = res.data;
+      console.log(user);
+      if (user._id) {
+        dispatch(loginActionCreator(user));
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+}
+
 export const loginThunk = (username, password) => {
   return (dispatch) => {
 		axios.post('/api/user/authenticate', {
