@@ -40,7 +40,6 @@ export const joinLeagueThunk = (leagueID) => {
     .then(res => {
       const league = res.data;
 
-      dispatch(receiveLeagueActionCreator(league));
       dispatch(push(`/leagues/${league._id}`));
       dispatch(addLeagueActionCreator(league));
     })
@@ -58,8 +57,8 @@ export const createLeagueThunk = () => {
       username: getState().account.username
     })
 		.then(res => {
-			const league = res.data;
-      dispatch(receiveLeagueActionCreator(league));
+      const league = res.data;
+
       dispatch(push(`/leagues/${league._id}`));
       dispatch(addLeagueActionCreator(league));
 		})

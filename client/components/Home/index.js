@@ -37,6 +37,10 @@ class Home extends Component {
 		this.props.joinLeague(this.state.leagueID);
 	}
 
+	goToLeague (id) {
+		this.props.goToLeague(id);
+	}
+
   render () {
     return (
       <div>
@@ -84,7 +88,7 @@ class Home extends Component {
 						this.props.leagues.length ?
 						this.props.leagues.map(league => {
 							return (
-								<div className="leagueCard" key={league._id}>{ league.name }</div>
+								<div className="leagueCard" key={league._id} onClick={() => { this.goToLeague(league._id); }} >{ league.name }</div>
 							)
 						})
 						: <h4>You are currently not part of any leagues!</h4>
@@ -98,6 +102,7 @@ class Home extends Component {
 
 import { connect } from 'react-redux';
 import { createLeagueThunk, joinLeagueThunk } from '../../actions/league';
+import { push } from 'react-router-redux';
 
 const mapStateToProps = state => {
 	return {
@@ -113,6 +118,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		joinLeague (leagueID) {
 			dispatch(joinLeagueThunk(leagueID));
+		},
+		goToLeague (leagueID) {
+			dispatch(push(`/leagues/${leagueID}`));
 		}
 	}
 }

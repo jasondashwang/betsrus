@@ -12,9 +12,7 @@ import './styles.css';
 class League extends Component {
 
 	componentDidMount () {
-		if (!this.props.id) {
-			this.props.getLeague();
-		}
+		this.props.getLeague();
 	}
 
 	componentWillUnmount () {
