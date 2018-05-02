@@ -7,7 +7,7 @@ const User = require('../../db/models/User');
 
 router.post('/createLeague', (req, res) => {
   const leagueData = {
-    players: [{playerID: req.body.userID, score: 0}],
+    players: [{_id: req.body.userID, username: req.body.username, score: 0}],
   };
 
   // First, create the league
@@ -47,7 +47,7 @@ router.post('/joinLeague', (req, res) => {
       // Add user to league.
       League.findOneAndUpdate(
         {_id: league.id},
-        {$push: {players: {_id: req.body.userID, score: 0}}},
+        {$push: {players: {_id: req.body.userID, username: req.body.username, score: 0}}},
         {new: false},
         (err, doc) => {
           if (!err) {

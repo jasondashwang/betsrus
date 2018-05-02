@@ -34,7 +34,8 @@ export const joinLeagueThunk = (leagueID) => {
   return (dispatch, getState) => {
     axios.post('/api/league/joinLeague', {
       leagueID,
-      userID: getState().account._id
+      userID: getState().account._id,
+      username: getState().account.username
     })
     .then(res => {
       const league = res.data;
@@ -53,7 +54,8 @@ export const createLeagueThunk = () => {
   axios.defaults.withCredentials = true;
   return (dispatch, getState) => {
     axios.post('/api/league/createLeague', {
-      userID: getState().account._id
+      userID: getState().account._id,
+      username: getState().account.username
     })
 		.then(res => {
 			const league = res.data;
