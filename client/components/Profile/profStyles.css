@@ -14,6 +14,15 @@
 	margin-right: 25px;
 }
 
-.panel-default {
+.bodyPanels {
 	margin-top: 50px;
+}
+
+#infoPanels {
+	margin-top: 20px;
+}
+
+.leagueCol img {
+	display: inline-block;
+	margin-right: 25px;
 }
