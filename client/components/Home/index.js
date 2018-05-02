@@ -20,7 +20,7 @@ class Home extends Component {
 		super(props);
 
 		this.state = {
-			leagueId: ''
+			leagueID: ''
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -28,13 +28,13 @@ class Home extends Component {
 	}
 
   handleChange(evt) {
-    this.setState({ leagueId: evt.target.value });
+    this.setState({ leagueID: evt.target.value });
 	}
 
 	handleSubmit (evt) {
 		evt.preventDefault();
 
-		console.log('submitted');
+		this.props.joinLeague(this.state.leagueID);
 	}
 
   render () {
@@ -55,7 +55,7 @@ class Home extends Component {
 								<ControlLabel>Join Existing League</ControlLabel>
 								<FormControl
 									type="text"
-									value={this.state.leagueId}
+									value={this.state.leagueID}
 									placeholder="Enter League ID"
 									onChange={this.handleChange}
 								/>
@@ -77,20 +77,19 @@ class Home extends Component {
 
 				<Jumbotron>
 					<h2>My Leagues</h2>
+					{ /* Change this to be a Grid Format */ }
 
-					<Grid>
-						<Row>
-							<Col md={4}>
-								Moo
-							</Col>
-							<Col md={4}>
-								Moo
-							</Col>
-							<Col md={4}>
-								Moo
-							</Col>
-						</Row>
-					</Grid>
+					{
+						// if there are leagues, return the list of them otherwise display a message to join one
+						this.props.leagues.length ?
+						this.props.leagues.map(league => {
+							return (
+								<div key={league._id}>{ league.name }</div>
+							)
+						})
+						: <h4>You are currently not part of any leagues!</h4>
+
+					}
 				</Jumbotron>
       </div>
     );
@@ -98,11 +97,12 @@ class Home extends Component {
 }
 
 import { connect } from 'react-redux';
-import { createLeagueThunk } from '../../actions/league';
+import { createLeagueThunk, joinLeagueThunk } from '../../actions/league';
 
 const mapStateToProps = state => {
 	return {
-		accountId: state.account.id
+		accountId: state.account.id,
+		leagues: state.account.leagues
 	}
 }
 
@@ -110,6 +110,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		createLeague () {
 			dispatch(createLeagueThunk())
+		},
+		joinLeague (leagueID) {
+			dispatch(joinLeagueThunk(leagueID));
 		}
 	}
 }

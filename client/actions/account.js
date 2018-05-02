@@ -2,6 +2,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 
 export const LOGIN = 'LOGIN';
+export const ADD_LEAGUE = 'ADD_LEAGUE';
 
 export const loginActionCreator = account => {
   return {
@@ -9,6 +10,29 @@ export const loginActionCreator = account => {
     account,
   }
 };
+
+export const addLeagueActionCreator = league => {
+  return {
+    type: ADD_LEAGUE,
+    league,
+  }
+}
+
+export const checkSessionThunk = () => {
+  return dispatch => {
+    axios.get('/api/user/data')
+    .then(res => {
+      const user = res.data;
+      console.log(user);
+      if (user._id) {
+        dispatch(loginActionCreator(user));
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+}
 
 export const loginThunk = (username, password) => {
   return (dispatch) => {
