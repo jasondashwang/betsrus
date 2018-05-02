@@ -13,7 +13,7 @@ class Login extends Component {
 
 	validPass() {
 	    const length = this.state.signupPassword.length;
-	    if (length > 6) return 'success';
+	    if (length > 1) return 'success';
 	    else if (length > 0) return 'error';
 	    return null;
    }
