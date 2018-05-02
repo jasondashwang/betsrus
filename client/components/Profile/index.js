@@ -33,7 +33,7 @@ class Profile extends Component {
 			      		<Panel.Title componentClass="h3"> Username </Panel.Title>
 			      	</Panel.Heading>
 			      	<Panel.Body>
-			      	Cool League Guy
+			      	 { this.props.username }
 			      	</Panel.Body>
 	  				</Panel>
 	  				<Panel>
@@ -41,7 +41,7 @@ class Profile extends Component {
 			      		<Panel.Title componentClass="h3"> Email </Panel.Title>
 			      	</Panel.Heading>
 			      	<Panel.Body>
-			      	myEmail@web.com
+			      	{ this.props.email }
 			      	</Panel.Body>
 	  				</Panel>
 	  				<Panel eventKey="1">
@@ -70,7 +70,7 @@ class Profile extends Component {
 	  		</Col>
 	  	</Row>
 	  </Grid>
-     
+
 	  <Panel>
       	<Panel.Heading>
       		<Panel.Title componentClass="h2"> Achievements </Panel.Title>
