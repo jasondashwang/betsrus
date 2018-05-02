@@ -63,4 +63,13 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+	return {
+		username: state.account.username,
+		email: state.account.email
+	}
+}
+
+export default connect(mapStateToProps)(Profile);
