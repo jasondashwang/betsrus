@@ -1,5 +1,6 @@
 import {
-  RECEIVE_LEAGUE
+  RECEIVE_LEAGUE,
+  CLEAR_LEAGUE
 } from '../actions/league';
 
 const initialLeagueState = {
@@ -17,6 +18,13 @@ export default function (state = initialLeagueState, action) {
       newState.id = action.league._id;
       newState.players = action.players;
       newState.name = action.league.name;
+      break;
+    }
+
+    case CLEAR_LEAGUE: {
+      newState.id = ''
+      newState.players = [];
+      newState.name = '';
       break;
     }
 

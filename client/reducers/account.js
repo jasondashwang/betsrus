@@ -1,5 +1,6 @@
 import {
-  LOGIN
+  LOGIN,
+  ADD_LEAGUE
 } from '../actions/account';
 
 const initialAccountState = {
@@ -19,6 +20,12 @@ export default function (state = initialAccountState, action) {
       newState.username = action.account.username;
       newState.email = action.account.email;
       newState.leagues = action.account.leagues;
+      break;
+    }
+
+    case ADD_LEAGUE: {
+      newState.leagues = state.leagues.slice(0);
+      newState.leagues.push(action.league);
       break;
     }
 

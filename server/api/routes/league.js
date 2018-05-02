@@ -32,7 +32,6 @@ router.post('/createLeague', (req, res) => {
         }
       );
       res.json(league);
-      // TODO: reroute to league page.
     }
   });
 });
@@ -48,13 +47,13 @@ router.post('/joinLeague', (req, res) => {
       // Add user to league.
       League.findOneAndUpdate(
         {_id: league.id},
-        {$push: {players: {playerID: req.session.userID, score: 0}}},
+        {$push: {players: {playerID: req.body.userID, score: 0}}},
         {new: false},
         (err, doc) => {
           if (!err) {
             // Then add league to user's list of leagues.
             User.findOneAndUpdate(
-              {_id: req.session.userID},
+              {_id: req.body.userID},
               {$push: {leagues: league.id}},
               {new: true},
               (err, doc) => {
@@ -66,12 +65,10 @@ router.post('/joinLeague', (req, res) => {
                 }
               }
             );
-            res.status(200).send();
+            res.status(200).json(doc);
           }
         }
       );
-
-      // TODO: reroute to league page
     }
   });
 });

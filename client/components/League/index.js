@@ -17,6 +17,10 @@ class League extends Component {
 		}
 	}
 
+	componentWillUnmount () {
+		this.props.clearLeague();
+	}
+
   render () {
     return (
       <div>
@@ -89,7 +93,7 @@ class League extends Component {
 }
 
 import { connect } from 'react-redux';
-import { getLeagueThunk } from '../../actions/league';
+import { getLeagueThunk, clearLeagueActionCreator } from '../../actions/league';
 
 const mapStateToProps = (state) => {
 	return {
@@ -103,6 +107,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		getLeague () {
 			return dispatch(getLeagueThunk(ownProps.match.params.leagueId));
+		},
+		clearLeague () {
+			return dispatch(clearLeagueActionCreator());
 		}
 	}
 }

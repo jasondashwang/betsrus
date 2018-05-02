@@ -20,7 +20,7 @@ class Home extends Component {
 		super(props);
 
 		this.state = {
-			leagueId: ''
+			leagueID: ''
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -28,13 +28,13 @@ class Home extends Component {
 	}
 
   handleChange(evt) {
-    this.setState({ leagueId: evt.target.value });
+    this.setState({ leagueID: evt.target.value });
 	}
 
 	handleSubmit (evt) {
 		evt.preventDefault();
 
-		console.log('submitted');
+		this.props.joinLeague(this.state.leagueID);
 	}
 
   render () {
@@ -55,7 +55,7 @@ class Home extends Component {
 								<ControlLabel>Join Existing League</ControlLabel>
 								<FormControl
 									type="text"
-									value={this.state.leagueId}
+									value={this.state.leagueID}
 									placeholder="Enter League ID"
 									onChange={this.handleChange}
 								/>
@@ -84,7 +84,7 @@ class Home extends Component {
 						this.props.leagues.length ?
 						this.props.leagues.map(league => {
 							return (
-								<div>{ league }</div>
+								<div key={league._id}>{ league.name }</div>
 							)
 						})
 						: <h4>You are currently not part of any leagues!</h4>
@@ -97,7 +97,7 @@ class Home extends Component {
 }
 
 import { connect } from 'react-redux';
-import { createLeagueThunk } from '../../actions/league';
+import { createLeagueThunk, joinLeagueThunk } from '../../actions/league';
 
 const mapStateToProps = state => {
 	return {
@@ -110,6 +110,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		createLeague () {
 			dispatch(createLeagueThunk())
+		},
+		joinLeague (leagueID) {
+			dispatch(joinLeagueThunk(leagueID));
 		}
 	}
 }
