@@ -15,6 +15,10 @@ const server = app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 })
 
+const io = require('socket.io')(server);
+
+require('./sockets')(io);
+
 // logging middleware comes first
 app.use(volleyball);
 

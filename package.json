@@ -23,6 +23,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
+    "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "redis": "^2.8.0",
@@ -30,6 +31,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "request-promise": "^4.2.2",
+    "socket.io": "^2.1.0",
     "volleyball": "^1.4.1"
   },
   "devDependencies": {

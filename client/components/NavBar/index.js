@@ -6,13 +6,11 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import NavItem from 'react-bootstrap/lib/NavItem'
 
+import { LinkContainer } from 'react-router-bootstrap';
+
 // This will be our main component container for the rest of our site
 class NavBar extends Component {
   render () {
-
-		const account = {
-			id: 1
-		}
 
     return (
       <Navbar>
@@ -23,15 +21,14 @@ class NavBar extends Component {
   		  </Navbar.Header>
   		  <Nav>
 					{
-						account.id ?
+						this.props.accountId ?
 						( <NavDropdown title="My Account" id="basic-nav-dropdown">
-								<MenuItem href="/profile">Profile</MenuItem>
+								<LinkContainer to="/profile"><MenuItem>Profile</MenuItem></LinkContainer>
 								<MenuItem>Log Out</MenuItem>
 							</NavDropdown>) :
 						(
-							<NavItem href="/login">
-								Login / Sign Up
-							</NavItem> )
+							<LinkContainer to="/login"><NavItem>Login / Sign Up</NavItem></LinkContainer>
+						)
 					}
   		  </Nav>
   		</Navbar>
@@ -39,4 +36,12 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+	return {
+		accountId: state.account.id
+	}
+}
+
+export default connect(mapStateToProps)(NavBar);
