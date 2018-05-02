@@ -1,11 +1,9 @@
 require('dotenv').config();
-
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
-
 const app = express();
 
 const PORT = process.env.PORT || 1337; // uses environment variable, but if it does not exist, default to 1337
@@ -47,7 +45,8 @@ app.use((req, res, next) => {
 
 // send index.html
 app.get('*', (req, res, next) => {
-    console.log('hello');
+    console.log(req.session);
+    console.log(req.session.userID);
   	res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   }
 );

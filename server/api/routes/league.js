@@ -12,6 +12,7 @@ router.post('/createLeague', (req, res) => {
 
   // First, create the league
   League.create(leagueData, (err, league) => {
+    console.log(league);
     if (err) {
       console.error(err);
       res.status(500).send();
@@ -74,6 +75,44 @@ router.post('/joinLeague', (req, res) => {
     }
   });
 });
+
+router.get('/retrieve', (req, res) => {
+  User.findOne({
+    _id: req.session.userID
+  }, (err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send();
+    } else {
+      res.json(user.leagues);
+      res.status(200).send();
+    }
+  })
+});
+
+router.get('/details', (req, res) => {
+  League
+    .findOne({_id: req.body.leagueID})
+    .populate('players.playerID')
+    .exec((err, league) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send();
+    } else {
+      const leagueObj = {};
+      leagueObj.name = league.name;
+      leagueObj.players = league.players.map((player) => {
+        return {
+          id: player.playerID.id,
+          username: player.playerID.username,
+          score: player.score,
+        };
+      })
+      res.json(leagueObj);
+      res.status(200).send();
+    }
+  });
+})
 
 
 module.exports = router;
