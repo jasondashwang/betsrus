@@ -16,60 +16,97 @@ import './profStyles.css';
 
 class Profile extends Component {
 
+	validPass() {
+	    const length = this.state.newPassword.length;
+	    if (length > 1) return 'success';
+	    else if (length > 0) return 'error';
+	    return null;
+   }
+
+   confirmPass() {
+	    const confirmed = this.state.confirmPassword;
+	    const original = this.state.newPassword;
+	    if (confirmed.length == 0) return null;
+	    else if (confirmed == original) return 'success';
+	    else return 'error';
+   }
+
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			oldPassword: '',
+			newPassword: '',
+			confirmPassword: '',
+			error: ''
+		}
+
+		this.validPass = this.validPass.bind(this);
+		this.confirmPass = this.confirmPass.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleNewPass = this.handleNewPass.bind(this);
+
+	}
+
+	handleChange (evt, type) {
+		const newState = {};
+		newState[type] = evt.target.value;
+
+		this.setState(newState)
+	}
+
+	handleNewPass (evt) {
+		evt.preventDefault();
+
+	}
+
+
+
 
   render () {
     return (
       <div>
       <h1> My Profile </h1>
-      <Grid>
-      	<Row className="headerGrid">
-      		<Col xsOffset={3} xs={3}>
-      			<Image src="http://via.placeholder.com/250x250"/>
-      		</Col>
-      		<Col xs={3}>
-      			<PanelGroup accordion id="infoPanels">
-  				<Panel>
-			      	<Panel.Heading>
-			      		<Panel.Title componentClass="h3"> Username </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body>
-			      	 { this.props.username }
-			      	</Panel.Body>
-	  				</Panel>
-	  				<Panel>
-			      	<Panel.Heading>
-			      		<Panel.Title componentClass="h3"> Email </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body>
-			      	{ this.props.email }
-			      	</Panel.Body>
-	  				</Panel>
-	  				<Panel eventKey="1">
-			      	<Panel.Heading>
-			      		<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body collapsible>
-				      	<form>
-				      		<FormGroup>
-					      		<ControlLabel> Current Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<FormGroup>
-					      		<ControlLabel> New Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<FormGroup>
-					      		<ControlLabel> Confirm New Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<Button type="submit">Change Password</Button>
-					    </form>
-			      	</Panel.Body>
-  				</Panel>
-  				</PanelGroup>
-	  		</Col>
-	  	</Row>
-	  </Grid>
+		<PanelGroup accordion id="infoPanels">
+			<Panel>
+	      	<Panel.Heading>
+	      		<Panel.Title componentClass="h3"> Username </Panel.Title>
+	      	</Panel.Heading>
+	      	<Panel.Body>
+	      	 { this.props.username }
+	      	</Panel.Body>
+				</Panel>
+				<Panel>
+	      	<Panel.Heading>
+	      		<Panel.Title componentClass="h3"> Email </Panel.Title>
+	      	</Panel.Heading>
+	      	<Panel.Body>
+	      	{ this.props.email }
+	      	</Panel.Body>
+				</Panel>
+				<Panel eventKey="1">
+	      	<Panel.Heading>
+	      		<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
+	      	</Panel.Heading>
+	      	<Panel.Body collapsible>
+		      	<form>
+		      		<FormGroup onSubmit={this.handleNewPass}>
+			      		<ControlLabel> Current Password </ControlLabel>
+			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
+			      	</FormGroup>
+			      	<FormGroup validationState={this.validPass()}>
+			      		<ControlLabel> New Password </ControlLabel>
+			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'newPassword')} }/>
+			      	</FormGroup>
+			      	<FormGroup validationState={this.confirmPass()}>
+			      		<ControlLabel> Confirm New Password </ControlLabel>
+			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'confirmPassword')} }/>
+			      	</FormGroup>
+			      	<Button type="submit">Change Password</Button>
+			    </form>
+	      	</Panel.Body>
+			</Panel>
+		</PanelGroup>
 
 	  <Panel>
       	<Panel.Heading>

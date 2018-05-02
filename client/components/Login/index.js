@@ -76,7 +76,7 @@ class Login extends Component {
 	   	const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 	   	const confirmed = this.state.confirmPassword;
 	    const original = this.state.signupPassword;
-	    if((length>6)&&(emailRegex.test(myMail))&&(confirmed == original)){
+	    if((length>1)&&(emailRegex.test(myMail))&&(confirmed == original)){
 	    	this.props.signup({
 			username: this.state.signupUsername,
 			password: this.state.signupPassword,
