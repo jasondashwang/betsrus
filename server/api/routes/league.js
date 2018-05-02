@@ -47,7 +47,7 @@ router.post('/joinLeague', (req, res) => {
       // Add user to league.
       League.findOneAndUpdate(
         {_id: league.id},
-        {$push: {players: {playerID: req.body.userID, score: 0}}},
+        {$push: {players: {_id: req.body.userID, score: 0}}},
         {new: false},
         (err, doc) => {
           if (!err) {
@@ -87,9 +87,9 @@ router.get('/retrieve', (req, res) => {
   })
 });
 
-router.get('/details', (req, res) => {
+router.get('/:leagueID', (req, res) => {
   League
-    .findOne({_id: req.body.leagueID})
+    .findOne({_id: req.params.leagueID})
     .populate('players.playerID')
     .exec((err, league) => {
     if (err) {
@@ -98,15 +98,15 @@ router.get('/details', (req, res) => {
     } else {
       const leagueObj = {};
       leagueObj.name = league.name;
+      leagueObj._id = league._id;
       leagueObj.players = league.players.map((player) => {
         return {
-          id: player.playerID.id,
+          _id: player.playerID.id,
           username: player.playerID.username,
           score: player.score,
         };
       })
       res.json(leagueObj);
-      res.status(200).send();
     }
   });
 });

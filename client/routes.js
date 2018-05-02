@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './components/Home';
 import Login from './components/Login';
@@ -9,10 +9,6 @@ import Profile from './components/Profile';
 import Page404 from './components/Page404';
 
 class Routes extends Component {
-
-	componentDidMount () {
-		this.props.checkSession();
-	}
 
   render () {
     return (
@@ -30,16 +26,5 @@ class Routes extends Component {
   }
 }
 
-import { connect } from 'react-redux';
-import { checkSessionThunk } from './actions/account';
 
-const mapDispatchToProps = dispatch => {
-	return {
-		checkSession () {
-			dispatch(checkSessionThunk());
-		}
-	}
-}
-
-
-export default withRouter(connect(null, mapDispatchToProps)(Routes));
+export default Routes;

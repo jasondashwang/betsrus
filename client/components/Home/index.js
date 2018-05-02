@@ -84,7 +84,7 @@ class Home extends Component {
 						this.props.leagues.length ?
 						this.props.leagues.map(league => {
 							return (
-								<div key={league._id}>{ league.name }</div>
+								<div className="leagueCard" key={league._id}>{ league.name }</div>
 							)
 						})
 						: <h4>You are currently not part of any leagues!</h4>
@@ -101,7 +101,7 @@ import { createLeagueThunk, joinLeagueThunk } from '../../actions/league';
 
 const mapStateToProps = state => {
 	return {
-		accountId: state.account.id,
+		accountId: state.account._id,
 		leagues: state.account.leagues
 	}
 }
