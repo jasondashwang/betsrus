@@ -25,6 +25,13 @@ export const addLeagueActionCreator = league => {
   }
 }
 
+export const logoutThunk = () => {
+  return dispatch => {
+    dispatch(logoutActionCreator());
+    dispatch(push('/'));
+  }
+}
+
 export const loginThunk = (username, password) => {
   return (dispatch) => {
 		axios.post('/api/user/authenticate', {
