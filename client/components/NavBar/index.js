@@ -49,7 +49,7 @@ class NavBar extends Component {
 }
 
 import { connect } from 'react-redux';
-import { logoutActionCreator } from '../../actions/account';
+import { logoutThunk } from '../../actions/account';
 
 const mapStateToProps = (state) => {
 	return {
@@ -60,7 +60,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		logout () {
-			dispatch(logoutActionCreator());
+			dispatch(logoutThunk());
 		}
 	}
 }

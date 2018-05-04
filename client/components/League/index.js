@@ -16,7 +16,8 @@ class League extends Component {
 
 	componentDidMount () {
 		this.props.getLeague();
-		this.props.mountSockets();
+    this.props.mountSockets();
+    this.props.getGames();
 	}
 
 	componentWillUnmount () {
@@ -38,12 +39,14 @@ class League extends Component {
     this.setState({ show: false });
   }
 
-  handleShow() {
+  handleShow (gameID) {
     this.setState({ show: true });
+
+    this.props.selectGame(gameID)
   }
 
   render () {
-		if (!this.props.accountID) {
+		if (this.props.accountID === 'meow') {
 			return (
 				<h1>Login to view Leagues</h1>
 			)
@@ -59,48 +62,34 @@ class League extends Component {
                   <Label bsStyle="primary">Upcoming Games</Label>{' '}
                 </h1>
                 <ListGroup>
-                <ListGroupItem>
-                  <Grid>
-                    <Row className="gameRow1">
-                      <Col xs={4}>
-                        <Image src="http://via.placeholder.com/125x125" />
-                        <p>Team 1</p>
-                      </Col>
-                      <Col xs={4}>
-                        <h2>
-                        <Label bsStyle="danger">VS</Label>{' '}
-                        </h2>
-                        <Label bsStyle="success">1 PM(EDT) Saturday Apr. 21, 2018</Label>{' '}
-                        <Button onClick={this.handleShow}> Place a Bet </Button>
-                      </Col>
-                      <Col xs={4}>
-                        <Image src="http://via.placeholder.com/125x125" />
-                        <p>Team 2</p>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <Grid>
-                    <Row className="gameRow1">
-                      <Col xs={4}>
-                        <Image src="http://via.placeholder.com/125x125" />
-                        <p>Team 3</p>
-                      </Col>
-                      <Col xs={4}>
-                        <h2>
-                        <Label bsStyle="danger">VS</Label>{' '}
-                        </h2>
-                        <Label bsStyle="success">3 PM(EDT) Sunday Apr. 22, 2018</Label>{' '}
-                        <Button onClick={this.handleShow}> Place a Bet </Button>
-                      </Col>
-                      <Col xs={4}>
-                        <Image src="http://via.placeholder.com/125x125" />
-                        <p>Team 4</p>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </ListGroupItem>
+                {
+                  this.props.games.map(game => {
+                    return (
+                      <ListGroupItem key={game.gameID}>
+                        <Grid>
+                          <Row className="gameRow1">
+                            <Col xs={4}>
+                              <Image src={`/premier-league/${game.team1.name}.png`} />
+                              <p>{ game.team1.name } </p>
+                            </Col>
+                            <Col xs={4}>
+                              <h2>
+                              <Label bsStyle="danger">VS</Label>
+                              </h2>
+                              <Label bsStyle="success"> { game.start_Date } </Label>
+                              <Button onClick={() => { this.handleShow(game.gameID); } }> Place a Bet </Button>
+                            </Col>
+                            <Col xs={4}>
+                              <Image src={`/premier-league/${game.team2.name}.png`} />
+                              <p> { game.team2.name } </p>
+                            </Col>
+                          </Row>
+                        </Grid>
+                      </ListGroupItem>
+                    )
+                  })
+                }
+
             </ListGroup>
               </Col>
               <Col md={2}>
@@ -137,13 +126,16 @@ class League extends Component {
 
 import { connect } from 'react-redux';
 import { getLeagueThunk, clearLeagueActionCreator, mountSocketsThunk } from '../../actions/league';
+import { getGamesThunk, selectGameActionCreator } from '../../actions/games';
 
 const mapStateToProps = (state) => {
 	return {
 		id: state.league._id,
 		players: state.league.players,
     name: state.league.name,
-    accountID: state.account._id
+    accountID: state.account._id,
+    games: state.games.list,
+    focusGame: state.games.focusGame
 	}
 };
 
@@ -158,7 +150,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		mountSockets () {
 			dispatch(mountSocketsThunk());
-		}
+    },
+    getGames () {
+      dispatch(getGamesThunk());
+    },
+    selectGame (gameID) {
+      dispatch(selectGameActionCreator(gameID));
+    }
 	}
 }
 

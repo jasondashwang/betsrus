@@ -9,7 +9,7 @@ const ObjectId = require('mongodb').ObjectID;
 const API_SERVER = "https://api.football-data.org";
 
 // Only used once to get EPL fixtures for 2017/18 and fill database.
-// Do not call otherwise because parts of it are hardcoded. 
+// Do not call otherwise because parts of it are hardcoded.
 // Will be deleted once finished.
 router.get('/EPLFixtures201718', (req, res) => {
   var options = {
@@ -51,7 +51,6 @@ router.get('/remainingFixtures', (req, res) => {
       res.status(500).send(err);
     } else {
       res.json(games);
-      res.send();
     }
   });
 });
@@ -79,7 +78,7 @@ router.get('/cronTest', (req, res) => {
         return Game.findOneAndUpdate(
           {gameID: match.id},
           {$set: {
-            team1: { name: match.homeTeamName, score: match.result.goalsHomeTeam }, 
+            team1: { name: match.homeTeamName, score: match.result.goalsHomeTeam },
             team2: { name: match.awayTeamName, score: match.result.goalsAwayTeam }
           }},
           {new: true},
@@ -103,7 +102,7 @@ function updateLeagueScores(matches) {
         const promises = matches.map((match) => {
           // Get prediction user had for the given match.
           return Prediction.findOne(
-            {gameID: match.gameID, userID: ObjectId(player.playerID), leagueID: ObjectId(league.id)}, 
+            {gameID: match.gameID, userID: ObjectId(player.playerID), leagueID: ObjectId(league.id)},
             (err, prediction) => {
               const score = scorePredictionAgainstMatch(match, prediction);
               League.findOneAndUpdate(
@@ -131,7 +130,7 @@ function scorePredictionAgainstMatch(match, prediction) {
   } else if (prediction.scores.home - match.team1.score ===
     prediction.scores.away - match.team2.score) {
     points = 5;
-  } else if (match.team1.score !== match.team2.score && 
+  } else if (match.team1.score !== match.team2.score &&
     (match.team1.score - match.team2.score) ^ (prediction.scores.home - prediction.scores.away) === 0 ) {
     points = 3;
   }
