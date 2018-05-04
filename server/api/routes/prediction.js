@@ -6,19 +6,14 @@ const ObjectId = require('mongodb').ObjectID;
 
 // Here is where rest of routes fit in
 
-
 //the retrieve route is referenced when the user needs to access information regarding a prediction.
 router.get('/retrieve', (req, res) => {
-  const userID = req.body.userID;
-  const gameID = req.body.gameID;
-
-  Prediction.findOne({
-    userID: userID,
-		gameID: gameID
-  }).then((prediction) => {
+  const leagueID = req.body.leagueID;
+  Prediction.find({
+		leagueID: leagueID
+  }).then((predictions) => {
     // upon request for a prediction of a certain game, send that info back.
-		res.status(200).send(prediction);
-
+    res.json(predictions);
   }).catch((err) => {
     res.status(500).send(err);
   });
