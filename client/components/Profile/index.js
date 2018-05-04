@@ -61,68 +61,71 @@ class Profile extends Component {
 	}
 
 
-
-
   render () {
-    return (
-      <div>
-      <h1> My Profile </h1>
-		<PanelGroup accordion id="infoPanels">
+		if (!this.props._id) {
+			return (
+				<h1>Login to view profile</h1>
+			)
+		} else {
+			return (
+				<div>
+				<h1> My Profile </h1>
+				<PanelGroup accordion id="infoPanels">
+					<Panel>
+							<Panel.Heading>
+								<Panel.Title componentClass="h3"> Username </Panel.Title>
+							</Panel.Heading>
+							<Panel.Body>
+							{ this.props.username }
+							</Panel.Body>
+						</Panel>
+						<Panel>
+							<Panel.Heading>
+								<Panel.Title componentClass="h3"> Email </Panel.Title>
+							</Panel.Heading>
+							<Panel.Body>
+							{ this.props.email }
+							</Panel.Body>
+						</Panel>
+						<Panel eventKey="1">
+							<Panel.Heading>
+								<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
+							</Panel.Heading>
+							<Panel.Body collapsible>
+								<form>
+						      		<FormGroup onSubmit={this.handleNewPass}>
+							      		<ControlLabel> Current Password </ControlLabel>
+							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
+							      	</FormGroup>
+							      	<FormGroup validationState={this.validPass()}>
+							      		<ControlLabel> New Password </ControlLabel>
+							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'newPassword')} }/>
+							      	</FormGroup>
+							      	<FormGroup validationState={this.confirmPass()}>
+							      		<ControlLabel> Confirm New Password </ControlLabel>
+							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'confirmPassword')} }/>
+							      	</FormGroup>
+							      	<Button type="submit">Change Password</Button>
+							    </form>
+							</Panel.Body>
+					</Panel>
+				</PanelGroup>
 			<Panel>
-	      	<Panel.Heading>
-	      		<Panel.Title componentClass="h3"> Username </Panel.Title>
-	      	</Panel.Heading>
-	      	<Panel.Body>
-	      	 { this.props.username }
-	      	</Panel.Body>
-				</Panel>
-				<Panel>
-	      	<Panel.Heading>
-	      		<Panel.Title componentClass="h3"> Email </Panel.Title>
-	      	</Panel.Heading>
-	      	<Panel.Body>
-	      	{ this.props.email }
-	      	</Panel.Body>
-				</Panel>
-				<Panel eventKey="1">
-	      	<Panel.Heading>
-	      		<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
-	      	</Panel.Heading>
-	      	<Panel.Body collapsible>
-		      	<form>
-		      		<FormGroup onSubmit={this.handleNewPass}>
-			      		<ControlLabel> Current Password </ControlLabel>
-			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
-			      	</FormGroup>
-			      	<FormGroup validationState={this.validPass()}>
-			      		<ControlLabel> New Password </ControlLabel>
-			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'newPassword')} }/>
-			      	</FormGroup>
-			      	<FormGroup validationState={this.confirmPass()}>
-			      		<ControlLabel> Confirm New Password </ControlLabel>
-			      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'confirmPassword')} }/>
-			      	</FormGroup>
-			      	<Button type="submit">Change Password</Button>
-			    </form>
-	      	</Panel.Body>
+					<Panel.Heading>
+						<Panel.Title componentClass="h2"> Achievements </Panel.Title>
+					</Panel.Heading>
+					<Panel.Body className="leagueCol">
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+				</Panel.Body>
 			</Panel>
-		</PanelGroup>
 
-	  <Panel>
-      	<Panel.Heading>
-      		<Panel.Title componentClass="h2"> Achievements </Panel.Title>
-      	</Panel.Heading>
-      	<Panel.Body className="leagueCol">
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-	    </Panel.Body>
-	  </Panel>
-
-      </div>
-    );
+				</div>
+			);
+		}
   }
 }
 
@@ -130,6 +133,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
 	return {
+		_id: state.account._id,
 		username: state.account.username,
 		email: state.account.email
 	}
