@@ -24,8 +24,10 @@ router.get('/EPLFixtures201718', (req, res) => {
   rp(options)
     .then((data) => {
       data.fixtures.map((match) => {
+        console.log(match.homeTeamName, match.awayTeamName, match.date);
+        console.log(match);
         const gameData = {
-          start_Date: match.date,
+          start_Date: new Date(match.date),
           team1: { name: match.homeTeamName, score: -1 },
           team2: { name: match.awayTeamName, score: -1 },
           gameID: match.id,
@@ -50,6 +52,11 @@ router.get('/remainingFixtures', (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
+      games.sort(function(a, b) {
+        a = new Date(a.start_Date);
+        b = new Date(b.start_Date);
+        return a<b ? -1 : a>b ? 1 : 0;
+      });
       res.json(games);
     }
   });
@@ -57,7 +64,7 @@ router.get('/remainingFixtures', (req, res) => {
 
 
 // Cron Job run every day at midnight to update scores across leagues
-router.get('/cronTest', (req, res) => {
+router.get('/cron', (req, res) => {
   // First, using our external API, update our GAME table with all results
   // in the past 24 hours if it is in need of updating
   var options = {
