@@ -3,5 +3,5 @@ import league from './league';
 
 export default {
   account,
-  league,
+  league
 };

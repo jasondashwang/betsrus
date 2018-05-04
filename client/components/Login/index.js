@@ -7,6 +7,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import './loginStyle.css';
 
 // This will be our main component container for the rest of our site
 class Login extends Component {
@@ -95,9 +96,9 @@ class Login extends Component {
     return (
       <div>
 	      <h1>Login/Signup</h1>
-	      <Panel>
 		      <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
 			      <Tab eventKey={1} title="Login">
+			      	<Panel>
 			      	<form onSubmit={this.handleLogin}>
 			      		<FormGroup>
 				      		<ControlLabel>Username</ControlLabel>
@@ -109,9 +110,11 @@ class Login extends Component {
 			      		</FormGroup>
 			      		<Button type="submit">Login</Button>
 			      	</form>
+			      	</Panel>
 		      	  </Tab>
 
 		        <Tab eventKey={2} title="Sign Up">
+		        	<Panel>
 		        	<form onSubmit={this.handleSignUp}>
 			      		<FormGroup validationState={this.confirmEmail()}>
 				      		<ControlLabel>Email</ControlLabel>
@@ -135,9 +138,10 @@ class Login extends Component {
 			      		<Button type="submit">Sign Up</Button>
 			      		{ this.state.error ? <HelpBlock>{this.state.error}</HelpBlock> : ''}
 			      	</form>
+			      	</Panel>
 		        </Tab>
 		      </Tabs>
-	      </Panel>
+	      
       </div>
     );
   }
