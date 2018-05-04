@@ -72,7 +72,7 @@ export const joinLeagueThunk = (leagueID) => {
   }
 }
 
-export const createLeagueThunk = () => {
+export const createLeagueThunk = (name) => {
   axios.defaults.withCredentials = true;
   return (dispatch, getState) => {
 
@@ -80,7 +80,8 @@ export const createLeagueThunk = () => {
 
     axios.post('/api/league/createLeague', {
       userID: account._id,
-      username: account.username
+      username: account.username,
+      name
     })
 		.then(res => {
       const league = res.data;

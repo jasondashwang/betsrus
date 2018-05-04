@@ -20,21 +20,35 @@ class Home extends Component {
 		super(props);
 
 		this.state = {
-			leagueID: ''
+			leagueID: '',
+			name: ''
 		}
 
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChangeLeagueID = this.handleChangeLeagueID.bind(this);
+		this.handleJoin = this.handleJoin.bind(this);
+		this.handleChangeName = this.handleChangeName.bind(this);
+		this.handleCreate = this.handleCreate.bind(this);
+		this.goToLeague = this.goToLeague.bind(this);
 	}
 
-  handleChange(evt) {
+  handleChangeLeagueID(evt) {
     this.setState({ leagueID: evt.target.value });
 	}
 
-	handleSubmit (evt) {
+	handleJoin (evt) {
 		evt.preventDefault();
 
 		this.props.joinLeague(this.state.leagueID);
+	}
+
+	handleChangeName (evt) {
+		this.setState({ name: evt.target.value });
+	}
+
+	handleCreate (evt) {
+		evt.preventDefault();
+
+		this.props.createLeague(this.state.name)
 	}
 
 	goToLeague (id) {
@@ -52,25 +66,40 @@ class Home extends Component {
 
 					{ this.props.accountId ?
 						<div>
-							<form onSubmit={this.handleSubmit}>
+							<form onSubmit={this.handleJoin}>
+								<FormGroup
+									controlId="formBasicText"
+								>
+									<ControlLabel>Join Existing League</ControlLabel>
+									<FormControl
+										type="text"
+										value={this.state.leagueID}
+										placeholder="Enter League ID"
+										onChange={this.handleChangeLeagueID}
+									/>
+									<FormControl.Feedback />
+								</FormGroup>
+
+								<Button type="submit" bsStyle="primary">Join</Button>
+							</form>
+
+							<form onSubmit={this.handleCreate}>
 							<FormGroup
 								controlId="formBasicText"
 							>
-								<ControlLabel>Join Existing League</ControlLabel>
+								<ControlLabel>Create League</ControlLabel>
 								<FormControl
 									type="text"
-									value={this.state.leagueID}
-									placeholder="Enter League ID"
-									onChange={this.handleChange}
+									value={this.state.name}
+									placeholder="Enter League Name"
+									onChange={this.handleChangeName}
 								/>
 								<FormControl.Feedback />
 							</FormGroup>
 
-							<Button type="submit">Join</Button>
+								<Button type="submit" bsStyle="primary">Create</Button>
 							</form>
-							<p>
-								<Button onClick={this.props.createLeague} bsStyle="primary">Create New League</Button>
-							</p>
+
 						</div> :
 						<div>
 							<h4>To create or join a league, please login or sign up with an account</h4>
@@ -113,8 +142,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		createLeague () {
-			dispatch(createLeagueThunk())
+		createLeague (name) {
+			dispatch(createLeagueThunk(name))
 		},
 		joinLeague (leagueID) {
 			dispatch(joinLeagueThunk(leagueID));

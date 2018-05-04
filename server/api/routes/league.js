@@ -8,6 +8,7 @@ const User = require('../../db/models/User');
 router.post('/createLeague', (req, res) => {
   const leagueData = {
     players: [{playerID: req.body.userID, score: 0}],
+    name: req.body.name
   };
 
   // First, create the league
