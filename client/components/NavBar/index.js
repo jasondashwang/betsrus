@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/lib/Nav'
 import MenuItem from 'react-bootstrap/lib/MenuItem'
 import NavDropdown from 'react-bootstrap/lib/NavDropdown'
 import NavItem from 'react-bootstrap/lib/NavItem'
+import './navStyle.css';
 
 import { LinkContainer } from 'react-router-bootstrap';
 
