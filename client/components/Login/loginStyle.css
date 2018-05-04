@@ -1,5 +1,6 @@
 body {
 	font-family: Futura;
+	color: #006BA6;
 }
 
 h1 {
@@ -10,8 +11,6 @@ h1 {
 	max-width: 33%;
 	margin: 0 auto;
 	text-align: center;
-	background-color: #006BA6;
-	color: white;
 }
 
 .nav-tabs {
@@ -31,8 +30,22 @@ h1 {
 .btn-default {
 	margin: 0 auto;
 	margin-bottom: 15px;
+	background-color: #006BA6;
+	color: white;
+	background-image: none;	
+	text-shadow: none;
 }
 
-.help-block {
-	color: #D0E4EE;
+.btn-default:hover {
+	background-color: #006297;
+	color: lightgray;
+	background-image: none;	
+	text-shadow: none;
+}
+
+.btn-default:active {
+	background-color: #005888;
+	color: gray;
+	background-image: none;	
+	text-shadow: none;
 }

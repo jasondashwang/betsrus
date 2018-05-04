@@ -92,8 +92,8 @@ class Profile extends Component {
 								<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
 							</Panel.Heading>
 							<Panel.Body>
-								<form>
-						      		<FormGroup onSubmit={this.handleNewPass}>
+								<form onSubmit={this.handleNewPass}>
+						      		<FormGroup >
 							      		<ControlLabel> Current Password </ControlLabel>
 							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
 							      	</FormGroup>
