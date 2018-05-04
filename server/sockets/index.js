@@ -1,9 +1,19 @@
-ObjectId = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectID;
 const Prediction = require('../db/models/Prediction');
 module.exports = io => {
   io.on('connection', socket => {
+
+
+		socket.on('joinLeague', (update) => {
+
+			socket.join(update.leagueID);
+			socket.to(update.leagueID).broadcast.emit('joinLeague', update.player);
+
+		})
+
+
 		socket.on('predict', (homescore, awayscore, username, gameID, leagueID, userID) => {
-			socket.join(leageID);
+			socket.join(leagueID);
 			const predData = {
 			  	scores: {home: homescore, away: awayscore},
 			  	username: username,
