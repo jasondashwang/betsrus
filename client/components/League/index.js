@@ -6,6 +6,9 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import Label from 'react-bootstrap/lib/Label';
 import Image from 'react-bootstrap/lib/Image';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Button from 'react-bootstrap/lib/Button';
+import Modal from 'react-bootstrap/lib/Modal';
 import './styles.css';
 
 // This will be our main component container for the rest of our site
@@ -19,11 +22,34 @@ class League extends Component {
 		this.props.clearLeague();
 	}
 
+  constructor (props) {
+    super(props);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+
+    this.state = {
+        show: false
+    };
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+
+
+
+
+
   render () {
     return (
       <div>
-      	<h1>{ this.props.name }</h1>
-				<h1>League Code (Share with Friends): { this.props.id }</h1>
+      	<h1>{ this.props.name } </h1>
+				<h2>League Code (Share with Friends): { this.props.id }</h2>
       	<Grid>
       		<Row className="leagueGrid">
       			<Col md={8} mdOffset={2}>
@@ -43,6 +69,7 @@ class League extends Component {
   										<Label bsStyle="danger">VS</Label>{' '}
   										</h2>
   										<Label bsStyle="success">1 PM(EDT) Saturday Apr. 21, 2018</Label>{' '}
+                      <Button onClick={this.handleShow}> Place a Bet </Button>
   									</Col>
   									<Col xs={4}>
   										<Image src="http://via.placeholder.com/125x125" />
@@ -63,6 +90,7 @@ class League extends Component {
   										<Label bsStyle="danger">VS</Label>{' '}
   										</h2>
   										<Label bsStyle="success">3 PM(EDT) Sunday Apr. 22, 2018</Label>{' '}
+                      <Button onClick={this.handleShow}> Place a Bet </Button>
   									</Col>
   									<Col xs={4}>
   										<Image src="http://via.placeholder.com/125x125" />
@@ -87,6 +115,17 @@ class League extends Component {
       			</Col>
       		</Row>
       	</Grid>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Placing Bet</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

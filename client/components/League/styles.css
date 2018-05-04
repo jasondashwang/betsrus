@@ -19,3 +19,12 @@ h2 {
 	text-align: center;
 }
 
+.headerdiv {
+	text-align: center
+}
+
+.headerdiv * {
+	margin: 0 auto;
+	display: inline-block;
+}
+
