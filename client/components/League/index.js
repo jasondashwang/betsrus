@@ -13,6 +13,7 @@ class League extends Component {
 
 	componentDidMount () {
 		this.props.getLeague();
+		this.props.mountSockets();
 	}
 
 	componentWillUnmount () {
@@ -93,7 +94,7 @@ class League extends Component {
 }
 
 import { connect } from 'react-redux';
-import { getLeagueThunk, clearLeagueActionCreator } from '../../actions/league';
+import { getLeagueThunk, clearLeagueActionCreator, mountSocketsThunk } from '../../actions/league';
 
 const mapStateToProps = (state) => {
 	return {
@@ -104,12 +105,16 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+
 	return {
 		getLeague () {
 			return dispatch(getLeagueThunk(ownProps.match.params.leagueId));
 		},
 		clearLeague () {
 			return dispatch(clearLeagueActionCreator());
+		},
+		mountSockets () {
+			dispatch(mountSocketsThunk());
 		}
 	}
 }

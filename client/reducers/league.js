@@ -1,6 +1,7 @@
 import {
   RECEIVE_LEAGUE,
-  CLEAR_LEAGUE
+  CLEAR_LEAGUE,
+  ADD_PLAYER
 } from '../actions/league';
 
 const initialLeagueState = {
@@ -25,6 +26,12 @@ export default function (state = initialLeagueState, action) {
       newState._id = ''
       newState.players = [];
       newState.name = '';
+      break;
+    }
+
+    case ADD_PLAYER: {
+      newState.players = state.players.slice(0);
+      newState.players.push(action.player);
       break;
     }
 

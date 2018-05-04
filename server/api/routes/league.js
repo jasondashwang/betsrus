@@ -12,7 +12,6 @@ router.post('/createLeague', (req, res) => {
 
   // First, create the league
   League.create(leagueData, (err, league) => {
-    console.log(league);
     if (err) {
       console.error(err);
       res.status(500).send();
@@ -82,7 +81,6 @@ router.get('/retrieve', (req, res) => {
       res.status(500).send();
     } else {
       res.json(user.leagues);
-      res.status(200).send();
     }
   })
 });
