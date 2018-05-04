@@ -1,6 +1,7 @@
 import {
   RECEIVE_GAMES,
-  SELECT_GAME
+  SELECT_GAME,
+  RECEIVE_PREDICTIONS
 } from '../actions/games';
 
 const initialAccountState = {
@@ -31,6 +32,17 @@ export default function (state = initialAccountState, action) {
       }
 
       break;
+    }
+
+    case RECEIVE_PREDICTIONS: {
+      const predictions = action.predictions;
+
+      predictions.forEach(prediction => {
+        newState.bets[prediction.gameID] = prediction;
+      })
+
+      break;
+
     }
 
     default: {

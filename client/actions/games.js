@@ -4,6 +4,14 @@ import socket from '../socket';
 
 export const RECEIVE_GAMES = 'RECEIVE_GAMES';
 export const SELECT_GAME = 'SELECT_GAME';
+export const RECEIVE_PREDICTIONS = 'RECEIVE_PREDICTIONS';
+
+export const receivePredictionsActionCreator = predictions => {
+  return {
+    type: RECEIVE_PREDICTIONS,
+    predictions
+  }
+}
 
 export const receiveGamesActionCreator = games => {
   return {

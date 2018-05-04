@@ -6,9 +6,9 @@ const ObjectId = require('mongodb').ObjectID;
 
 // Here is where rest of routes fit in
 
-//the retrieve route is referenced when the user needs to access information regarding a prediction.
-router.get('/retrieve', (req, res) => {
-  const leagueID = req.body.leagueID;
+//the retrieve route
+router.get('/:leagueID', (req, res) => {
+  const leagueID = req.params.leagueID;
   Prediction.find({
 		leagueID: leagueID
   }).then((predictions) => {

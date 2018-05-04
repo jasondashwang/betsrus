@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { addLeagueActionCreator } from './account';
+import { receivePredictionsActionCreator } from './games';
 
 import socket from '../socket';
 
@@ -30,11 +31,16 @@ export const clearLeagueActionCreator = () => {
 
 export const getLeagueThunk = (id) => {
   return (dispatch) => {
-    axios.get(`/api/league/${id}`)
-    .then(res => {
-      const league = res.data;
+    Promise.all([axios.get(`/api/league/${id}`), axios.get(`/api/prediction/${id}`)])
+    .then(reses => {
+      const league = reses[0].data;
+      const predictions = reses[1].data;
 
       dispatch(receiveLeagueActionCreator(league));
+      dispatch(receivePredictionsActionCreator(predictions));
+    })
+    .catch(err => {
+      console.error(err);
     })
   }
 }
