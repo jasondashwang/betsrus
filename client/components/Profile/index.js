@@ -18,7 +18,7 @@ class Profile extends Component {
 
 	validPass() {
 	    const length = this.state.newPassword.length;
-	    if (length > 1) return 'success';
+	    if (length > 6) return 'success';
 	    else if (length > 0) return 'error';
 	    return null;
    }
@@ -87,11 +87,11 @@ class Profile extends Component {
 							{ this.props.email }
 							</Panel.Body>
 						</Panel>
-						<Panel eventKey="1">
+						<Panel>
 							<Panel.Heading>
 								<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
 							</Panel.Heading>
-							<Panel.Body collapsible>
+							<Panel.Body>
 								<form>
 						      		<FormGroup onSubmit={this.handleNewPass}>
 							      		<ControlLabel> Current Password </ControlLabel>
@@ -110,19 +110,6 @@ class Profile extends Component {
 							</Panel.Body>
 					</Panel>
 				</PanelGroup>
-			<Panel>
-					<Panel.Heading>
-						<Panel.Title componentClass="h2"> Achievements </Panel.Title>
-					</Panel.Heading>
-					<Panel.Body className="leagueCol">
-						<Image src="http://via.placeholder.com/125x125" />
-						<Image src="http://via.placeholder.com/125x125" />
-						<Image src="http://via.placeholder.com/125x125" />
-						<Image src="http://via.placeholder.com/125x125" />
-						<Image src="http://via.placeholder.com/125x125" />
-				</Panel.Body>
-			</Panel>
-
 				</div>
 			);
 		}
