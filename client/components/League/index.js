@@ -42,15 +42,8 @@ class League extends Component {
     this.setState({ show: true });
   }
 
-
-
-
-
   render () {
-
-    
-
-		if (!this.props._id) {
+		if (!this.props.accountID) {
 			return (
 				<h1>Login to view Leagues</h1>
 			)
@@ -149,7 +142,8 @@ const mapStateToProps = (state) => {
 	return {
 		id: state.league._id,
 		players: state.league.players,
-		name: state.league.name
+    name: state.league.name,
+    accountID: state.account._id
 	}
 };
 
