@@ -18,74 +18,80 @@ class Profile extends Component {
 
 
   render () {
-    return (
-      <div>
-      <h1> My Profile </h1>
-      <Grid>
-      	<Row className="headerGrid">
-      		<Col xsOffset={3} xs={3}>
-      			<Image src="http://via.placeholder.com/250x250"/>
-      		</Col>
-      		<Col xs={3}>
-      			<PanelGroup accordion id="infoPanels">
-  				<Panel>
-			      	<Panel.Heading>
-			      		<Panel.Title componentClass="h3"> Username </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body>
-			      	 { this.props.username }
-			      	</Panel.Body>
-	  				</Panel>
-	  				<Panel>
-			      	<Panel.Heading>
-			      		<Panel.Title componentClass="h3"> Email </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body>
-			      	{ this.props.email }
-			      	</Panel.Body>
-	  				</Panel>
-	  				<Panel eventKey="1">
-			      	<Panel.Heading>
-			      		<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
-			      	</Panel.Heading>
-			      	<Panel.Body collapsible>
-				      	<form>
-				      		<FormGroup>
-					      		<ControlLabel> Current Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<FormGroup>
-					      		<ControlLabel> New Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<FormGroup>
-					      		<ControlLabel> Confirm New Password </ControlLabel>
-					      		<FormControl type="text"/>
-					      	</FormGroup>
-					      	<Button type="submit">Change Password</Button>
-					    </form>
-			      	</Panel.Body>
-  				</Panel>
-  				</PanelGroup>
-	  		</Col>
-	  	</Row>
-	  </Grid>
+		if (!this.props._id) {
+			return (
+				<h1>Login to view profile</h1>
+			)
+		} else {
+			return (
+				<div>
+				<h1> My Profile </h1>
+				<Grid>
+					<Row className="headerGrid">
+						<Col xsOffset={3} xs={3}>
+							<Image src="http://via.placeholder.com/250x250"/>
+						</Col>
+						<Col xs={3}>
+							<PanelGroup accordion id="infoPanels">
+						<Panel>
+								<Panel.Heading>
+									<Panel.Title componentClass="h3"> Username </Panel.Title>
+								</Panel.Heading>
+								<Panel.Body>
+								{ this.props.username }
+								</Panel.Body>
+							</Panel>
+							<Panel>
+								<Panel.Heading>
+									<Panel.Title componentClass="h3"> Email </Panel.Title>
+								</Panel.Heading>
+								<Panel.Body>
+								{ this.props.email }
+								</Panel.Body>
+							</Panel>
+							<Panel eventKey="1">
+								<Panel.Heading>
+									<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
+								</Panel.Heading>
+								<Panel.Body collapsible>
+									<form>
+										<FormGroup>
+											<ControlLabel> Current Password </ControlLabel>
+											<FormControl type="text"/>
+										</FormGroup>
+										<FormGroup>
+											<ControlLabel> New Password </ControlLabel>
+											<FormControl type="text"/>
+										</FormGroup>
+										<FormGroup>
+											<ControlLabel> Confirm New Password </ControlLabel>
+											<FormControl type="text"/>
+										</FormGroup>
+										<Button type="submit">Change Password</Button>
+								</form>
+								</Panel.Body>
+						</Panel>
+						</PanelGroup>
+					</Col>
+				</Row>
+			</Grid>
 
-	  <Panel>
-      	<Panel.Heading>
-      		<Panel.Title componentClass="h2"> Achievements </Panel.Title>
-      	</Panel.Heading>
-      	<Panel.Body className="leagueCol">
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-      		<Image src="http://via.placeholder.com/125x125" />
-	    </Panel.Body>
-	  </Panel>
+			<Panel>
+					<Panel.Heading>
+						<Panel.Title componentClass="h2"> Achievements </Panel.Title>
+					</Panel.Heading>
+					<Panel.Body className="leagueCol">
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+						<Image src="http://via.placeholder.com/125x125" />
+				</Panel.Body>
+			</Panel>
 
-      </div>
-    );
+				</div>
+			);
+		}
   }
 }
 
@@ -93,6 +99,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
 	return {
+		_id: state.account._id,
 		username: state.account.username,
 		email: state.account.email
 	}
