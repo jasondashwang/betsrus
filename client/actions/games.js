@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import socket from '../socket';
+
 export const RECEIVE_GAMES = 'RECEIVE_GAMES';
 export const SELECT_GAME = 'SELECT_GAME';
 
@@ -28,4 +30,25 @@ export const getGamesThunk = () => {
     })
   };
 };
+
+export const submitPredictionThunk = (scores) => {
+  return (dispatch, getState) => {
+
+    const state = getState();
+
+    axios.post('/api/prediction', {
+      scores,
+      gameID: state.games.focusGame.gameID,
+      leagueID: state.league._id,
+      username: state.account.username,
+      userID: state.account._id
+    })
+    .then(prediction => {
+      console.log(prediction);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+}
 

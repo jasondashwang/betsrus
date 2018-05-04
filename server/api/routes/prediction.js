@@ -33,4 +33,26 @@ router.get('/mygames', (req, res) => {
 	});
 });
 
+router.post('/', (req, res) => {
+
+  const { scores, username, gameID, leagueID, userID } = req.body;
+
+  const predData = {
+      scores,
+      username,
+      gameID,
+      leagueID,
+      userID
+  };
+
+  Prediction.create(predData, (err, pred) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send(err);
+    } else {
+      res.json(pred);
+    }
+  });
+})
+
 module.exports = router;

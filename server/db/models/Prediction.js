@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var PredictionSchema = new Schema({
   gameID : Number,
   leagueID: Schema.Types.ObjectId,
-  scores: {home: Number, away: Number},
+  scores: {team1: Number, team2: Number},
   userID: Schema.Types.ObjectId
 });
 
