@@ -74,7 +74,7 @@ export default function (state = initialGamesState, action) {
         newState.bets[prediction.gameID].push(prediction);
       }
 
-      newState.myBets[prediction.gameID] = prediction;
+      if (prediction.userID === action.id) newState.myBets[prediction.gameID] = prediction;
 
       break;
     }

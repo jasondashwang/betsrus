@@ -14,10 +14,11 @@ export const clearGamesActionCreator = () => {
   }
 }
 
-export const addPredictionActionCreator = prediction => {
+export const addPredictionActionCreator = (prediction, id) => {
   return {
     type: ADD_PREDICTION,
-    prediction
+    prediction,
+    id
   }
 }
 
@@ -67,8 +68,11 @@ export const submitPredictionThunk = (scores) => {
     })
     .then(res => {
       const prediction = res.data;
-      dispatch(addPredictionActionCreator(prediction));
-
+      dispatch(addPredictionActionCreator(prediction, state.account._id));
+      socket.emit('addPrediction', {
+        prediction,
+        leagueID: state.league._id
+      })
     })
     .catch(err => {
       console.error(err);

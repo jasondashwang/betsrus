@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { addLeagueActionCreator } from './account';
-import { receivePredictionsActionCreator } from './games';
+import { receivePredictionsActionCreator, addPredictionActionCreator } from './games';
 
 import socket from '../socket';
 
@@ -118,5 +118,9 @@ export const mountSocketsThunk = () => {
         dispatch(addPlayerActionCreator(player));
       }
     })
+
+    socket.on('addPrediction', prediction => {
+      dispatch(addPredictionActionCreator(prediction, getState().account._id));
+    });
   }
 }

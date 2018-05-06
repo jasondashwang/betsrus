@@ -7,14 +7,14 @@ module.exports = io => {
 		socket.on('joinLeague', (update) => {
 
 			socket.join(update.leagueID);
-			socket.to(update.leagueID).broadcast.emit('joinLeague', update.player);
+			socket.to(update.leagueID).emit('joinLeague', update.player);
 
 		})
 
 
-		socket.on('predict', () => {
-
-
+		socket.on('addPrediction', (update) => {
+			console.log('broadcast motherfucker')
+			socket.to(update.leagueID).emit('addPrediction', update.prediction);
 		});
 
 		//socket.on('');
