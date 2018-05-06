@@ -3,13 +3,53 @@ body {
 }
 
 .landing {
-	background-color: purple;
+	background-color: #8BBBD6;
 	color: white;
 	overflow: auto;
+	margin-top: 50px;
+	margin: 0 auto;
+	margin-bottom: 30px;
 }
 
 .leagueCard {
 	height: 100px;
 	width: 100px;
-	background-color: fuchsia;
+	background-color: #006BA6;
+	color: white;
+	border-radius: 20px;
+}
+
+img {
+	max-width: 40%;
+}
+
+.jumbotron {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+button.btn.btn-primary {
+	margin-left: 15px;
+}
+
+.form-control {
+	margin-left: 15px;
+}
+
+input#formBasicText {
+	margin: 0;
+	margin-top: 10px;
+}
+
+.jumbotron div form * {
+	margin: auto 0;
+	display: inline-block;
+}
+
+.jumbotron div form {
+	margin-top: 15px;
+}
+
+form {
+	text-align: center;
 }
