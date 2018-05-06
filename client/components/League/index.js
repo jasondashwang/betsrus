@@ -73,14 +73,18 @@ class League extends Component {
       team2: this.state.team2Score
     })
 
-    this.handleClose();
+    this.setState({
+      team1Score: 0,
+      team2Score: 0,
+      show: false
+    });
   }
 
   render () {
-    const { bets, focusGame } = this.props;
+    const { bets, focusGame, myBets } = this.props;
     let showForm = true;
 
-    if (focusGame.gameID && bets[focusGame.gameID] && bets[focusGame.gameID].length > 0) {
+    if (focusGame.gameID && myBets[focusGame.gameID]) {
       showForm = false;
     }
 
@@ -103,6 +107,13 @@ class League extends Component {
                 <ListGroup>
                 {
                   this.props.games.map(game => {
+
+                    let showBet = true;
+
+                    if (myBets[game.gameID]) {
+                      showBet = false;
+                    }
+
                     return (
                       <ListGroupItem key={game.gameID}>
                         <Grid>
@@ -116,7 +127,7 @@ class League extends Component {
                               <Label bsStyle="danger">VS</Label>
                               </h2>
                               <Label bsStyle="success"> { game.start_Date } </Label>
-                              <Button onClick={() => { this.handleShow(game.gameID); } }> Place a Bet </Button>
+                              <Button onClick={() => { this.handleShow(game.gameID); } }> { showBet ? 'Place a Bet' : 'See Bets' }</Button>
                             </Col>
                             <Col xs={4}>
                               <Image src={`/premier-league/${game.team2.name}.png`} />
@@ -152,33 +163,42 @@ class League extends Component {
             </Modal.Header>
             <Modal.Body>
               {
-                showForm && focusGame.gameID ?
-                    (
-                      <form onSubmit={this.handlePrediction}>
-                        <FormGroup
-                          controlId="formBasicText"
-                        >
-                          <ControlLabel>{ `${focusGame.team1.name} final score` }</ControlLabel>
-                          <FormControl
-                            type="number"
-                            value={this.state.team1Score}
-                            onChange={this.handleTeam1Score}
-                          />
-                          <FormControl.Feedback />
+                focusGame.gameID ?
+                ( showForm ?
+                  (
+                    <form onSubmit={this.handlePrediction}>
+                      <FormGroup
+                        controlId="formBasicText"
+                      >
+                        <ControlLabel>{ `${focusGame.team1.name} final score` }</ControlLabel>
+                        <FormControl
+                          type="number"
+                          value={this.state.team1Score}
+                          onChange={this.handleTeam1Score}
+                        />
+                        <FormControl.Feedback />
 
-                          <ControlLabel>{ `${focusGame.team2.name} final score` }</ControlLabel>
-                          <FormControl
-                            type="number"
-                            value={this.state.team2Score}
-                            onChange={this.handleTeam2Score}
-                          />
-                          <FormControl.Feedback />
-                        </FormGroup>
+                        <ControlLabel>{ `${focusGame.team2.name} final score` }</ControlLabel>
+                        <FormControl
+                          type="number"
+                          value={this.state.team2Score}
+                          onChange={this.handleTeam2Score}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
 
-                        <Button type="submit" bsStyle="primary">Submit (This is final)</Button>
-                      </form>
-                    )
-                : ''
+                      <Button type="submit" bsStyle="primary">Submit (This is final)</Button>
+                    </form>
+                  )
+                  :
+                  (
+                    bets[focusGame.gameID].map(prediction => {
+                      return (
+                        <p key={prediction._id}>{ prediction.username }: { focusGame.team1.name } { prediction.scores.team1 } - { prediction.scores.team2 } { focusGame.team2.name } </p>
+                      );
+                    })
+                  )
+                ) : ''
               }
             </Modal.Body>
             <Modal.Footer>
@@ -194,7 +214,7 @@ class League extends Component {
 
 import { connect } from 'react-redux';
 import { getLeagueThunk, clearLeagueActionCreator, mountSocketsThunk } from '../../actions/league';
-import { getGamesThunk, selectGameActionCreator, submitPredictionThunk } from '../../actions/games';
+import { getGamesThunk, selectGameActionCreator, clearGamesActionCreator, submitPredictionThunk } from '../../actions/games';
 
 const mapStateToProps = (state) => {
 	return {
@@ -204,7 +224,8 @@ const mapStateToProps = (state) => {
     accountID: state.account._id,
     games: state.games.list,
     focusGame: state.games.focusGame,
-    bets: state.games.bets
+    bets: state.games.bets,
+    myBets: state.games.myBets
 	}
 };
 
@@ -215,7 +236,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			return dispatch(getLeagueThunk(ownProps.match.params.leagueId));
 		},
 		clearLeague () {
-			return dispatch(clearLeagueActionCreator());
+      dispatch(clearLeagueActionCreator());
+      dispatch(clearGamesActionCreator());
 		},
 		mountSockets () {
 			dispatch(mountSocketsThunk());
