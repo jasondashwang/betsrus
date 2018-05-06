@@ -8,15 +8,38 @@ body {
 	overflow: auto;
 	margin-top: 50px;
 	margin: 0 auto;
-	margin-bottom: 30px;
+	height: 100vh;
+}
+
+.leagueList h2 {
+	color: #006BA6;
+	padding-top: 15px;
+	margin-top: 75px;
+}
+
+.leagueList.jumbotron {
+	padding-top: 0px;
 }
 
 .leagueCard {
 	height: 100px;
-	width: 100px;
-	background-color: #006BA6;
-	color: white;
-	border-radius: 20px;
+    width: 100px;
+    background-color: #006BA6;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    /* margin: 0 auto; */
+    vertical-align: top;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.leagueCard:hover {
+	background-color: #006297;
+	cursor: pointer;
 }
 
 img {
@@ -26,6 +49,7 @@ img {
 .jumbotron {
 	padding-top: 30px;
 	padding-bottom: 30px;
+	text-align: center;
 }
 
 button.btn.btn-primary {
@@ -52,4 +76,9 @@ input#formBasicText {
 
 form {
 	text-align: center;
+}
+
+h4 {
+	text-align: center;
+	font-style: italic;
 }

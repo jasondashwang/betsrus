@@ -28,3 +28,12 @@ h2 {
 	display: inline-block;
 }
 
+.col-xs-4 {
+	text-align: center;
+}
+
+.label-success {
+	background-color: #8BBBD6;
+	color: white ;
+}
+

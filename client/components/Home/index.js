@@ -106,11 +106,10 @@ class Home extends Component {
 						</div>
 
 					}
-    	  </Jumbotron>
 
-				{
+					{
 					this.props.accountId ?
-								<Jumbotron>
+								<Jumbotron className="leagueList">
 									<h2>My Leagues</h2>
 									{ /* Change this to be a Grid Format */ }
 
@@ -128,6 +127,8 @@ class Home extends Component {
 								</Jumbotron>
 					: ''
 				}
+
+    	  </Jumbotron>
 
       </div>
     );

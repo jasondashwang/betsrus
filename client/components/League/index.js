@@ -126,7 +126,7 @@ class League extends Component {
                               <h2>
                               <Label bsStyle="danger">VS</Label>
                               </h2>
-                              <Label bsStyle="success"> { game.start_Date } </Label>
+                              <Label bsStyle="success"> { new Date(game.start_Date).toUTCString() } </Label>
                               <Button onClick={() => { this.handleShow(game.gameID); } }> { showBet ? 'Place a Bet' : 'See Bets' }</Button>
                             </Col>
                             <Col xs={4}>
