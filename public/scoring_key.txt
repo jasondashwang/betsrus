@@ -1,0 +1,9 @@
+Scoring:
+
+10 points - Predict Exact Scoreline
+
+5 points - Predict Correct Outcome's Margin of Victory
+
+3 points - Predict Winner
+
+0 points - Predict Incorrect Outcome

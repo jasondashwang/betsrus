@@ -12,7 +12,10 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Button from 'react-bootstrap/lib/Button';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import './profStyles.css';
+
+import axios from 'axios';
 
 class Profile extends Component {
 
@@ -38,7 +41,8 @@ class Profile extends Component {
 			oldPassword: '',
 			newPassword: '',
 			confirmPassword: '',
-			error: ''
+			error: '',
+			success: ''
 		}
 
 		this.validPass = this.validPass.bind(this);
@@ -57,6 +61,23 @@ class Profile extends Component {
 
 	handleNewPass (evt) {
 		evt.preventDefault();
+
+		axios.post('/api/user/changePassword', {
+			userID: this.props._id,
+			password: this.state.newPassword
+		})
+		.then(() => {
+			this.setState({
+				oldPassword: '',
+				newPassword: '',
+				confirmPassword: '',
+				error: '',
+				success: 'Password Successfully Changed!'
+			})
+		})
+		.catch(err => {
+			console.error(err);
+		})
 
 	}
 
@@ -95,17 +116,20 @@ class Profile extends Component {
 								<form onSubmit={this.handleNewPass}>
 						      		<FormGroup >
 							      		<ControlLabel> Current Password </ControlLabel>
-							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
+							      		<FormControl type="password" value={this.state.oldPassword} onChange={(evt) => { this.handleChange(evt, 'oldPassword')} }/>
 							      	</FormGroup>
 							      	<FormGroup validationState={this.validPass()}>
 							      		<ControlLabel> New Password </ControlLabel>
-							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'newPassword')} }/>
+							      		<FormControl type="password" value={this.state.newPassword} onChange={(evt) => { this.handleChange(evt, 'newPassword')} }/>
 							      	</FormGroup>
 							      	<FormGroup validationState={this.confirmPass()}>
 							      		<ControlLabel> Confirm New Password </ControlLabel>
-							      		<FormControl type="password" onChange={(evt) => { this.handleChange(evt, 'confirmPassword')} }/>
+							      		<FormControl type="password" value={this.state.confirmPassword} onChange={(evt) => { this.handleChange(evt, 'confirmPassword')} }/>
 							      	</FormGroup>
 							      	<Button type="submit">Change Password</Button>
+											{
+												this.state.success ? <HelpBlock>{ this.state.success }</HelpBlock> : ''
+											}
 							    </form>
 							</Panel.Body>
 					</Panel>
