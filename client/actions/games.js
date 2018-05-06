@@ -5,11 +5,27 @@ import socket from '../socket';
 export const RECEIVE_GAMES = 'RECEIVE_GAMES';
 export const SELECT_GAME = 'SELECT_GAME';
 export const RECEIVE_PREDICTIONS = 'RECEIVE_PREDICTIONS';
+export const ADD_PREDICTION = 'ADD_PREDICTION';
+export const CLEAR_GAMES = 'CLEAR_GAMES';
 
-export const receivePredictionsActionCreator = predictions => {
+export const clearGamesActionCreator = () => {
+  return {
+    type: CLEAR_GAMES
+  }
+}
+
+export const addPredictionActionCreator = prediction => {
+  return {
+    type: ADD_PREDICTION,
+    prediction
+  }
+}
+
+export const receivePredictionsActionCreator = (predictions, id) => {
   return {
     type: RECEIVE_PREDICTIONS,
-    predictions
+    predictions,
+    id
   }
 }
 
@@ -32,8 +48,6 @@ export const getGamesThunk = () => {
     axios.get('/api/game/remainingFixtures')
     .then(res => {
       const games = res.data;
-      console.log(games);
-
       dispatch(receiveGamesActionCreator(games));
     })
   };
@@ -51,8 +65,10 @@ export const submitPredictionThunk = (scores) => {
       username: state.account.username,
       userID: state.account._id
     })
-    .then(prediction => {
-      console.log(prediction);
+    .then(res => {
+      const prediction = res.data;
+      dispatch(addPredictionActionCreator(prediction));
+
     })
     .catch(err => {
       console.error(err);
