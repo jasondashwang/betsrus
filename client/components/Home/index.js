@@ -108,22 +108,27 @@ class Home extends Component {
 					}
     	  </Jumbotron>
 
-				<Jumbotron>
-					<h2>My Leagues</h2>
-					{ /* Change this to be a Grid Format */ }
+				{
+					this.props.accountId ?
+								<Jumbotron>
+									<h2>My Leagues</h2>
+									{ /* Change this to be a Grid Format */ }
 
-					{
-						// if there are leagues, return the list of them otherwise display a message to join one
-						this.props.leagues.length ?
-						this.props.leagues.map(league => {
-							return (
-								<div className="leagueCard" key={league._id} onClick={() => { this.goToLeague(league._id); }} >{ league.name }</div>
-							)
-						})
-						: <h4>You are currently not part of any leagues!</h4>
+									{
+										// if there are leagues, return the list of them otherwise display a message to join one
+										this.props.leagues.length ?
+										this.props.leagues.map(league => {
+											return (
+												<div className="leagueCard" key={league._id} onClick={() => { this.goToLeague(league._id); }} >{ league.name }</div>
+											)
+										})
+										: <h4>You are currently not part of any leagues!</h4>
 
-					}
-				</Jumbotron>
+									}
+								</Jumbotron>
+					: ''
+				}
+
       </div>
     );
   }
