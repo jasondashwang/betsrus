@@ -12,6 +12,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
+import Panel from 'react-bootstrap/lib/Panel';
 import './styles.css';
 
 // This will be our main component container for the rest of our site
@@ -100,7 +101,20 @@ class League extends Component {
           <h2>League Code (Share with Friends): { this.props.id }</h2>
           <Grid>
             <Row className="leagueGrid">
-              <Col md={8} mdOffset={2}>
+              <Col md={2}>
+                <h1>
+                  <Label bsStyle="primary">Scoring</Label>{' '}
+                </h1>
+                <ListGroup>
+                  <ListGroupItem>
+                    <p> 10 points - Predict Exact Scoreline </p>
+                    <p> 5 points - Predict Correct Margin of Victory</p>
+                    <p> 3 points - Predict Winner </p>
+                    <p> 0 points - Predict Incorrect Outcome </p>
+                  </ListGroupItem >
+                </ListGroup>
+              </Col>
+              <Col md={8}>
                 <h1>
                   <Label bsStyle="primary">Upcoming Games</Label>{' '}
                 </h1>
