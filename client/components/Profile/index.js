@@ -110,7 +110,7 @@ class Profile extends Component {
 						</Panel>
 						<Panel>
 							<Panel.Heading>
-								<Panel.Title toggle componentClass="h3"> Change Password </Panel.Title>
+								<Panel.Title componentClass="h3"> Change Password </Panel.Title>
 							</Panel.Heading>
 							<Panel.Body>
 								<form onSubmit={this.handleNewPass}>

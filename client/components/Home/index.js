@@ -61,7 +61,7 @@ class Home extends Component {
         <Jumbotron className="landing">
 					<Image src="/premier-league/betsrus.png" />
 					<p>
-						"Do you have what it takes to rise to the top?" - Chirayu Poudel (Crystal Palace)
+						"Do you have what it takes to rise to the top?"
 					</p>
 
 					{ this.props.accountId ?
