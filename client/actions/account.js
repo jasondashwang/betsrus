@@ -34,7 +34,7 @@ export const logoutThunk = () => {
 
 export const loginThunk = (username, password) => {
   return (dispatch) => {
-		axios.post('/api/user/authenticate', {
+		return axios.post('/api/user/authenticate', {
 			username,
 			password,
 		})
@@ -42,9 +42,6 @@ export const loginThunk = (username, password) => {
       const user = res.data;
       dispatch(loginActionCreator(user));
 			dispatch(push('/'));
-		})
-		.catch(err => {
-			console.error(err);
 		})
   }
 };

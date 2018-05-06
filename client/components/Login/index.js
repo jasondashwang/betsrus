@@ -45,7 +45,8 @@ class Login extends Component {
 			signupEmail: '',
 			signupPassword: '',
 			confirmPassword: '',
-			error: ''
+			error: '',
+			loginError: ''
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -66,7 +67,13 @@ class Login extends Component {
 	handleLogin (evt) {
 		evt.preventDefault();
 
-		this.props.login(this.state.loginUsername, this.state.loginPassword);
+		this.props.login(this.state.loginUsername, this.state.loginPassword)
+		.catch(err => {
+			this.setState({
+				loginError: 'Invalid Credentials'
+			})
+			console.error(err);
+		})
 	}
 
 	handleSignUp (evt) {
@@ -88,7 +95,7 @@ class Login extends Component {
 	    		error: 'Invalid Signup Info'
 	    	})
 	    }
-		
+
 	}
 
 
@@ -109,6 +116,7 @@ class Login extends Component {
 				      		<FormControl onChange={(evt) => { this.handleChange(evt, 'loginPassword')} } type="Password" />
 			      		</FormGroup>
 			      		<Button type="submit">Login</Button>
+								{ this.state.loginError ? <HelpBlock>{this.state.loginError}</HelpBlock> : ''}
 			      	</form>
 			      	</Panel>
 		      	  </Tab>
@@ -141,7 +149,7 @@ class Login extends Component {
 			      	</Panel>
 		        </Tab>
 		      </Tabs>
-	      
+
       </div>
     );
   }
@@ -153,7 +161,7 @@ import { loginThunk, signupThunk } from '../../actions/account';
 const mapDispatchToProps = dispatch => {
 	return {
 		login (username, password) {
-			dispatch(loginThunk(username, password))
+			return dispatch(loginThunk(username, password))
 		},
 
 		signup (user) {
