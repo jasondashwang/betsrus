@@ -21,6 +21,10 @@ body {
 	padding-top: 0px;
 }
 
+.leagueList h4 {
+	color: #006BA6;
+}
+
 .leagueCard {
 	height: 100px;
     width: 100px;
