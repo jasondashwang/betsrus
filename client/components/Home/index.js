@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-
+import Image from 'react-bootstrap/lib/Image';
 import axios from 'axios';
 
 import './styles.css';
@@ -59,7 +59,7 @@ class Home extends Component {
     return (
       <div>
         <Jumbotron className="landing">
-					<h1>Welcome to Bets R Us</h1>
+					<Image src="/premier-league/betsrus.png" />
 					<p>
 						"Do you have what it takes to rise to the top?" - Chirayu Poudel (Crystal Palace)
 					</p>

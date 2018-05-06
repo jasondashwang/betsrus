@@ -104,7 +104,10 @@ router.get('/:leagueID', (req, res) => {
           username: player.playerID.username,
           score: player.score,
         };
-      })
+      });
+      leagueObj.players.sort(function(a, b) {
+        return a.score > b.score ? -1 : a.score < b.score  ? 1 : 0;
+      });
       res.json(leagueObj);
     }
   });
